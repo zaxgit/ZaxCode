@@ -595,3 +595,11 @@ pre tt:after {
     font-size: 100%;
   }
 }
+
+
+/* Custom page styles */
+.page_wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
