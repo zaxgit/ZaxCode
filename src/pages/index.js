@@ -9,8 +9,8 @@ import { BlogCard } from "../components/blogcard"
 
 export const query = graphql`
   {
-   posts: allGhostPost {
-       edges {
+    posts: allGhostPost {
+      edges {
         node {
           excerpt
           feature_image
@@ -26,17 +26,41 @@ export const query = graphql`
   }
 `
 
-const IndexPage = ({data}) => {
-  const posts = data.posts.edges;
+// create content function
+//switch case for each state to display data on tab click
+
+function Content(props) {
+  console.log("very exciting!")
+  return null
+}
+
+const IndexPage = ({ data }) => {
+  const posts = data.posts.edges
+
+  /** SETUP STATE */
+
+  /** SETUP onClickTab Handler
+   * Param: value
+   */
 
   return (
-  <Layout>
-    <Seo title="Home" />
-    {posts.map(post => {
-      return <BlogCard key={post.uuid} {...post} />
-    }
-    )}
-  </Layout>
+    <Layout>
+      <Seo title="Home" />
+      <div className="tabs_wrapper">
+        <div className="tabs">
+          <button className="tab">About</button>
+          <button className="tab">Projects</button>
+          <button className="tab">Blog</button>
+          <button className="tab">Resume</button>
+        </div>
+      </div>
+      <Content value="Projects" />
+      {/* <div>
+        {posts.map(post => {
+          return <BlogCard key={post.uuid} {...post} />
+        })}
+      </div> */}
+    </Layout>
   )
 }
 

@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d0202f;
+  color: white;
+  text-decoration: none;
+  padding-top: 2rem;
+}
+
+.footer .footer_inner {
+  width: 15rem;
+  float: right;
+}
+
+.footer .footer_inner span {
+  font-size: 1.2rem;
+}
+
+.footer .footer_inner ul {
+  margin-left: 0;
+  padding-top: 1rem;
+  list-style-type: none;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}

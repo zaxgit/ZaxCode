@@ -596,10 +596,27 @@ pre tt:after {
   }
 }
 
+/* Custom Styles */
 
-/* Custom page styles */
-.page_wrapper {
+/* Tab Styles */
+
+.tabs_wrapper {
+  background: #d0202f;
+  padding-top: 25px;
+  padding-bottom: 10px;
+  margin-bottom: 25px;
   display: flex;
-  flex-flow: row wrap;
   justify-content: center;
+}
+.tabs {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  color: white;
+  font-size: 1.3rem;
+  width: 50%;
+}
+
+.tab {
+  transition: ease-in-out 0.5s;
 }
