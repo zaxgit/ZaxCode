@@ -598,8 +598,19 @@ pre tt:after {
 
 /* Custom Styles */
 
-/* Tab Styles */
+/* Layout Styles */
+.zxc-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: block;
+}
 
+.blogcard_container {
+  display: flex;
+  flex-flow: row;
+}
+
+/* Tab Styles */
 .tabs_wrapper {
   background: #d0202f;
   padding-top: 25px;
