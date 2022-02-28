@@ -1,3 +1,36 @@
+<!-- ToDo
+    LAYOUT
+      choose colors
+      setup css variables for background and text color
+      setup toggle in header for dm/lm
+      have toggle change the css variables for text and background
+
+    ABOUT
+      write about content
+      find image for about page
+      add contact to about tab?
+
+    BLOG
+      pull process blog posts into blog tab
+      style blog tab
+      style individual blog posts
+      add search field and set up functionality
+
+    Projects
+      style cards
+      create and style card wrapper/layout
+      add like button into card
+      create json for like count persistence setup
+
+    RESUME
+      find launchcode resume format
+      format resume as such into resume tab
+
+
+
+
+ -->
+
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.com">

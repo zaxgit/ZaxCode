@@ -4,8 +4,10 @@
   align-items: center;
   background-color: #d0202f;
   color: white;
+  margin-bottom: 0;
   text-decoration: none;
   padding-top: 2rem;
+  height: 20vh;
 }
 
 .footer .footer_inner {
@@ -14,6 +16,8 @@
 }
 
 .footer .footer_inner span {
+  display: block;
+  text-align: center;
   font-size: 1.2rem;
 }
 

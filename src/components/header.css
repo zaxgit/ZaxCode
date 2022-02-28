@@ -1,5 +1,5 @@
 header {
-  height: 10%;
+  height: 10vh;
   background-color: #d0202f;
 }
 
@@ -10,6 +10,7 @@ header div {
   align-items: center;
 }
 header div h1 {
+  padding: 25px;
   font-size: 4rem;
   margin: 0;
 }
