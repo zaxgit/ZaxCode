@@ -51,17 +51,15 @@ export const query = graphql`
 // }
 
 const IndexPage = ({ data }) => {
+  // create variable for project and blog post queries
   const projects = data.projects.edges
   const blogPosts = data.blog.edges
+
   /** SETUP STATE */
   const [tab, setTab] = useState("About")
+  const [query, setQuery] = useState("")
 
-  function handleChange() {
-    let postsObject = blogPosts.map(post => {
-      return (postsObject = { ...post })
-    })
-  }
-
+  // Render content dynamicly between tabs
   const content = () => {
     switch (tab) {
       case "About":
@@ -87,11 +85,16 @@ const IndexPage = ({ data }) => {
                 className="search"
                 type="text"
                 placeholder="Search"
-                onChange={handleChange()}
+                onChange={e => setQuery(e.target.value.toLowerCase())}
               ></input>
             </div>
             {blogPosts.map(post => {
-              return <BlogPost key={post.uuid} {...post} />
+              if (query) {
+                if (post.node.title.toLowerCase().includes(query))
+                  return <BlogPost key={post.uuid} {...post} />
+              } else {
+                return <BlogPost key={post.uuid} {...post} />
+              }
             })}
           </div>
         )

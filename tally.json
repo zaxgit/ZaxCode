@@ -1,0 +1,17 @@
+{
+  "name": "tally",
+  "description": "A tally for how many times a project has been liked",
+  "projects": {
+    "likes": {
+      "zaxcode": {
+        "tally": 3
+      },
+      "jbc studios": {
+        "tally": 2
+      },
+      "amber derousse": {
+        "tally": 1
+      }
+    }
+  }
+}
