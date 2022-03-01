@@ -1,16 +1,17 @@
 header {
-  height: 10vh;
+  min-height: 10vh;
   background-color: #d0202f;
 }
 
-header div {
+header .header_inner {
   height: inherit;
   display: flex;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
 }
-header div h1 {
-  padding: 25px;
+header .header_inner h1 {
+  padding-top: 15px;
   font-size: 4rem;
   margin: 0;
 }

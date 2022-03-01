@@ -1,13 +1,13 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-import { useState } from "react"
+import React, { useState } from "react"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import { graphql } from "gatsby"
 import { ProjectCard } from "../components/projectCard"
 import { BlogPost } from "../components/blogpost"
 import { Container } from "../components/container"
+import { styled } from "@mui/material/styles"
+import Switch from "@mui/material/Switch"
+import TextField from "@mui/material/TextField"
 
 export const query = graphql`
   {
@@ -81,12 +81,18 @@ const IndexPage = ({ data }) => {
         return (
           <div className="blogposts_wrapper">
             <div className="search_container">
-              <input
+              <TextField
+                id="filled-basic"
+                label="Search"
+                variant="filled"
+                onChange={e => setQuery(e.target.value.toLowerCase())}
+              />
+              {/* <input
                 className="search"
                 type="text"
                 placeholder="Search"
                 onChange={e => setQuery(e.target.value.toLowerCase())}
-              ></input>
+              ></input> */}
             </div>
             {blogPosts.map(post => {
               if (query) {
@@ -120,6 +126,7 @@ const IndexPage = ({ data }) => {
           <button className="tab" onClick={() => setTab("Projects")}>
             Projects
           </button>
+          <Switch />
           <button className="tab" onClick={() => setTab("Blog")}>
             Blog
           </button>

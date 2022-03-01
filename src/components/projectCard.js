@@ -2,7 +2,7 @@ import React from "react"
 import reactDom from "react-dom"
 import "./projectCard.css"
 import { FaRegHeart } from "@react-icons/all-files/Fa/FaRegHeart"
-import * as Tally from "../../tally.json"
+// import * as Tally from "../../tally.json"
 // import { gsap } from "gsap";
 // import { CSSRulePlugin } from "gsap/CSSRulePlugin";
 
@@ -10,9 +10,7 @@ import * as Tally from "../../tally.json"
 
 export function ProjectCard(props) {
   const post = props.node
-  function likeIt() {
-    // get variable json data
-  }
+
   return (
     <div className="projectcard_wrapper">
       <div className="projectcard_overlay">
@@ -29,7 +27,7 @@ export function ProjectCard(props) {
         <p> {post.excerpt}</p>
       </div>
       <div>
-        <FaRegHeart onClick={likeIt()} />
+        <FaRegHeart />
         <span></span>
       </div>
     </div>
