@@ -45,10 +45,6 @@ export const query = graphql`
     }
   }
 `
-// function toggleLightDark(props) {
-// target css variables maybe use GSAP to change them
-// grab button toggler in header
-// }
 
 const IndexPage = ({ data }) => {
   // create variable for project and blog post queries
