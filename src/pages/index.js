@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import { graphql } from "gatsby"
+import { ThemeProvider, createTheme } from "@mui/material/styles"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { ProjectCard } from "../components/projectCard"
 import { BlogPost } from "../components/blogpost"
 import { Container } from "../components/container"
-import { styled } from "@mui/material/styles"
+// import { styled } from "@mui/material/styles"
 import Switch from "@mui/material/Switch"
 import TextField from "@mui/material/TextField"
 
@@ -45,7 +46,27 @@ export const query = graphql`
     }
   }
 `
-
+// Material-UI theming
+export const theme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#ec4a50",
+    },
+    secondary: {
+      main: "#20d0c1",
+    },
+    error: {
+      main: "#de8527",
+    },
+  },
+  shape: {
+    borderRadius: 4,
+  },
+})
+// add theme colors to elements layout, header, footer, etc.
+// maybe implement mui buttons for tabs
+// setup mode toggle logic and local persistence
 const IndexPage = ({ data }) => {
   // create variable for project and blog post queries
   const projects = data.projects.edges
@@ -83,12 +104,6 @@ const IndexPage = ({ data }) => {
                 variant="filled"
                 onChange={e => setQuery(e.target.value.toLowerCase())}
               />
-              {/* <input
-                className="search"
-                type="text"
-                placeholder="Search"
-                onChange={e => setQuery(e.target.value.toLowerCase())}
-              ></input> */}
             </div>
             {blogPosts.map(post => {
               if (query) {
@@ -112,27 +127,29 @@ const IndexPage = ({ data }) => {
    */
 
   return (
-    <Layout>
-      <Seo title="Home" />
-      <div className="tabs_wrapper">
-        <div className="tabs">
-          <button className="tab" onClick={() => setTab("About")}>
-            About
-          </button>
-          <button className="tab" onClick={() => setTab("Projects")}>
-            Projects
-          </button>
-          <Switch />
-          <button className="tab" onClick={() => setTab("Blog")}>
-            Blog
-          </button>
-          <button className="tab" onClick={() => setTab("Resume")}>
-            Resume
-          </button>
+    <ThemeProvider theme={theme}>
+      <Layout>
+        <Seo title="Home" />
+        <div className="tabs_wrapper">
+          <div className="tabs">
+            <button className="tab" onClick={() => setTab("About")}>
+              About
+            </button>
+            <button className="tab" onClick={() => setTab("Projects")}>
+              Projects
+            </button>
+            <Switch />
+            <button className="tab" onClick={() => setTab("Blog")}>
+              Blog
+            </button>
+            <button className="tab" onClick={() => setTab("Resume")}>
+              Resume
+            </button>
+          </div>
         </div>
-      </div>
-      <Container>{content()}</Container>
-    </Layout>
+        <Container>{content()}</Container>
+      </Layout>
+    </ThemeProvider>
   )
 }
 
