@@ -16,7 +16,8 @@ export function ProjectCard(props) {
   const post = props.node
 
   return (
-    <Card sx={{ maxWidth: 300 }}>
+    <Card sx={{ maxwidth: "30%" }}>
+      {/* setup click event for action area to handle collapse */}
       <CardActionArea>
         <CardMedia
           component="img"
