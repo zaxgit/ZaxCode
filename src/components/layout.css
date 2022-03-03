@@ -623,10 +623,11 @@ button.tab:active {
   display: block;
 }
 
-.projectcard_container {
+/* .projectcard_container {
   display: flex;
-  flex-flow: row;
-}
+  flex-flow: row nowrap;
+  justify-content: space-between;
+} */
 
 /* Tab Styles */
 .tabs_wrapper {

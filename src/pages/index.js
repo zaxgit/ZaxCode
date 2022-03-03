@@ -40,7 +40,9 @@ export const query = graphql`
           title
           uuid
           created_at(formatString: "MMM DD, YYYY")
-          published_at(formatString: "h:ma")
+          published_at(formatString: "MMM DD YYYY h:ma")
+          plaintext
+          custom_excerpt
         }
       }
     }
@@ -62,6 +64,11 @@ export const theme = createTheme({
   },
   shape: {
     borderRadius: 4,
+  },
+  props: {
+    MuiAppBar: {
+      color: "transparent",
+    },
   },
 })
 // add theme colors to elements layout, header, footer, etc.

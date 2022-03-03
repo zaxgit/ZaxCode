@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom"
 // import "./projectCard.css"
 import {
@@ -14,14 +14,27 @@ import FavoriteIcon from "@mui/icons-material/Favorite"
 
 export function ProjectCard(props) {
   const post = props.node
+  const [expanded, setExpanded] = React.useState(false)
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded)
+  }
 
   return (
-    <Card sx={{ maxwidth: "30%" }}>
+    <Card
+      sx={{
+        maxWidth: 300,
+      }}
+    >
       {/* setup click event for action area to handle collapse */}
-      <CardActionArea>
+      <CardActionArea
+        onClick={handleExpandClick}
+        aria-label="show more"
+        aria-expanded={expanded}
+      >
         <CardMedia
           component="img"
-          height="200"
+          height="100"
           image={post.feature_image}
           alt={post.title}
         ></CardMedia>
@@ -35,26 +48,9 @@ export function ProjectCard(props) {
           <FavoriteIcon aria-label="like" />
         </IconButton>
       </CardActions>
-      <Collapse>{post.excerpt}</Collapse>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        {post.excerpt}
+      </Collapse>
     </Card>
-    // <div className="projectcard_wrapper">
-    //   <div className="projectcard_overlay">
-    //     <span>View Project</span>
-    //   </div>
-    //   <img src={post.feature_image} alt="project" />
-    //   <div className="projectcard_text">
-    //     <div className="projectcard_top_content">
-    //       <h4 className="projectcard_title">{post.title}</h4>
-    //       <h5 className="projectcard_read_time">
-    //         {post.reading_time} <span>min</span>
-    //       </h5>
-    //     </div>
-    //     <p> {post.excerpt}</p>
-    //   </div>
-    //   <div>
-    //     <FaRegHeart />
-    //     <span></span>
-    //   </div>
-    // </div>
   )
 }
