@@ -1,21 +1,16 @@
-import React, { useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
-import { Box, AppBar, Toolbar, Typography, IconButton } from "@mui/material"
-import SettingsIcon from "@mui/icons-material/Settings"
+import { Box, AppBar, Toolbar, Typography, Switch } from "@mui/material"
 
 // import "./header.css"
 
 const Header = ({ siteTitle }) => {
-  const [menu, setMenu] = useState()
-  const handleClickOpen = () => {}
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h2">{siteTitle}</Typography>
-          <IconButton>
-            <SettingsIcon />
-          </IconButton>
+          <Switch />
         </Toolbar>
       </AppBar>
     </Box>

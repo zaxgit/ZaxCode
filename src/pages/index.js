@@ -7,8 +7,8 @@ import { ProjectCard } from "../components/projectCard"
 import { BlogPost } from "../components/blogpost"
 import { Container } from "../components/container"
 // import { styled } from "@mui/material/styles"
-import Switch from "@mui/material/Switch"
-import TextField from "@mui/material/TextField"
+// import Switch from "@mui/material/Switch"
+import { TextField, Button } from "@mui/material"
 
 export const query = graphql`
   {
@@ -139,19 +139,23 @@ const IndexPage = ({ data }) => {
         <Seo title="Home" />
         <div className="tabs_wrapper">
           <div className="tabs">
-            <button className="tab" onClick={() => setTab("About")}>
+            <Button onClick={() => setTab("About")}>about</Button>
+            <Button onClick={() => setTab("Projects")}>projects</Button>
+            <Button onClick={() => setTab("Blog")}>blog</Button>
+            <Button onClick={() => setTab("Resume")}>resume</Button>
+
+            {/* <button className="tab" onClick={() => setTab("About")}>
               About
             </button>
             <button className="tab" onClick={() => setTab("Projects")}>
               Projects
             </button>
-            <Switch />
             <button className="tab" onClick={() => setTab("Blog")}>
               Blog
             </button>
             <button className="tab" onClick={() => setTab("Resume")}>
               Resume
-            </button>
+            </button> */}
           </div>
         </div>
         <Container>{content()}</Container>
