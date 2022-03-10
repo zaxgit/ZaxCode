@@ -23,7 +23,9 @@ export function ProjectCard(props) {
   return (
     <Card
       sx={{
+        minWidth: 300,
         maxWidth: 300,
+        display: "inline-block",
       }}
     >
       {/* setup click event for action area to handle collapse */}
@@ -34,7 +36,7 @@ export function ProjectCard(props) {
       >
         <CardMedia
           component="img"
-          height="100"
+          height="150"
           image={post.feature_image}
           alt={post.title}
         ></CardMedia>

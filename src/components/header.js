@@ -8,8 +8,17 @@ const Header = ({ siteTitle }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h2">{siteTitle}</Typography>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            ml: "5%",
+            mr: "5%",
+          }}
+        >
+          <Typography variant="h2" sx={{ color: "text.primary" }}>
+            {siteTitle}
+          </Typography>
           <Switch />
         </Toolbar>
       </AppBar>

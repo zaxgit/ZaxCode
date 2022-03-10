@@ -1,15 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, createContext, useContext, useMemo } from "react"
 import { graphql } from "gatsby"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
+import { Box, Button, TextField, useMediaQuery } from "@mui/material"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { ProjectCard } from "../components/projectCard"
 import { BlogPost } from "../components/blogpost"
 import { Container } from "../components/container"
-// import { styled } from "@mui/material/styles"
-// import Switch from "@mui/material/Switch"
-import { TextField, Button } from "@mui/material"
 
+// PULL IN DATA
 export const query = graphql`
   {
     projects: allGhostPost(
@@ -48,70 +47,80 @@ export const query = graphql`
     }
   }
 `
-// Material-UI theming
-export const theme = createTheme({
-  palette: {
-    mode: "light",
-    primary: {
-      main: "#ec4a50",
-    },
-    secondary: {
-      main: "#20d0c1",
-    },
-    error: {
-      main: "#de8527",
-    },
-  },
-  shape: {
-    borderRadius: 4,
-  },
-  props: {
-    MuiAppBar: {
-      color: "transparent",
-    },
-  },
-})
-// add theme colors to elements layout, header, footer, etc.
-// maybe implement mui buttons for tabs
-// setup mode toggle logic and local persistence
+//SET STATES
+
 const IndexPage = ({ data }) => {
   // create variable for project and blog post queries
   const projects = data.projects.edges
   const blogPosts = data.blog.edges
 
   /** SETUP STATE */
-  const [tab, setTab] = useState("About")
+  const [tab, setTab] = useState("Projects")
   const [query, setQuery] = useState("")
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)")
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDark ? "dark" : "light",
+          primary: {
+            main: "#ec4a50",
+          },
+          secondary: {
+            main: "#20d0c1",
+          },
+        },
+        components: {
+          MuiAppBar: {
+            defaultProps: {
+              color: "transparent",
+            },
+          },
+        },
+      }),
+    [prefersDark]
+  )
+
+  // CHECK MODE PREFERNCE
 
   // Render content dynamicly between tabs
   const content = () => {
     switch (tab) {
       case "About":
         return (
-          <div className="about_container">
+          <Box>
             <img src="#" alt="it's me" />
             <p>Stuff and things about me</p>
-          </div>
+          </Box>
         )
       case "Projects":
         return (
-          <div className="projectcard_container">
+          <Box>
             {projects.map(project => {
               return <ProjectCard key={project.uuid} {...project} />
             })}
-          </div>
+          </Box>
         )
       case "Blog":
         return (
-          <div className="blogposts_wrapper">
-            <div className="search_container">
+          // <div className="blogposts_wrapper">
+          // <div className="search_container">
+          <Box>
+            <Box
+              sx={{
+                mt: "5%",
+                mb: "2.5%",
+              }}
+            >
               <TextField
                 id="filled-basic"
                 label="Search"
                 variant="filled"
                 onChange={e => setQuery(e.target.value.toLowerCase())}
               />
-            </div>
+              {/* </div> */}
+            </Box>
             {blogPosts.map(post => {
               if (query) {
                 if (post.node.title.toLowerCase().includes(query))
@@ -120,7 +129,8 @@ const IndexPage = ({ data }) => {
                 return <BlogPost key={post.uuid} {...post} />
               }
             })}
-          </div>
+            {/* </div> */}
+          </Box>
         )
       case "Resume":
         return "Resume"
@@ -129,38 +139,43 @@ const IndexPage = ({ data }) => {
     }
   }
 
-  /** SETUP onClickTab Handler
-   * Param: value
-   */
-
   return (
+    // <ColorModeContext.Provider>
     <ThemeProvider theme={theme}>
       <Layout>
         <Seo title="Home" />
-        <div className="tabs_wrapper">
-          <div className="tabs">
-            <Button onClick={() => setTab("About")}>about</Button>
-            <Button onClick={() => setTab("Projects")}>projects</Button>
-            <Button onClick={() => setTab("Blog")}>blog</Button>
-            <Button onClick={() => setTab("Resume")}>resume</Button>
-
-            {/* <button className="tab" onClick={() => setTab("About")}>
-              About
-            </button>
-            <button className="tab" onClick={() => setTab("Projects")}>
-              Projects
-            </button>
-            <button className="tab" onClick={() => setTab("Blog")}>
-              Blog
-            </button>
-            <button className="tab" onClick={() => setTab("Resume")}>
-              Resume
-            </button> */}
-          </div>
-        </div>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Box
+            sx={{
+              minWidth: "50%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
+            <Button sx={{ p: "15px" }} onClick={() => setTab("About")}>
+              about
+            </Button>
+            <Button sx={{ p: "15px" }} onClick={() => setTab("Projects")}>
+              projects
+            </Button>
+            <Button sx={{ p: "15px" }} onClick={() => setTab("Blog")}>
+              blog
+            </Button>
+            <Button sx={{ p: "15px" }} onClick={() => setTab("Resume")}>
+              resume
+            </Button>
+          </Box>
+        </Box>
         <Container>{content()}</Container>
       </Layout>
     </ThemeProvider>
+    // </ColorModeContext.Provider>
   )
 }
 

@@ -11,6 +11,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import Header from "./header"
 import Footer from "./footer"
 import "./layout.css"
+import { Box } from "@mui/material"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -24,13 +25,11 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <Box sx={{ bgcolor: "background.default" }}>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      {/* <div> */}
       <main className="page_wrapper">{children}</main>
-      {/* </div> */}
       <Footer />
-    </>
+    </Box>
   )
 }
 

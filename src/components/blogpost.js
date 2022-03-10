@@ -18,6 +18,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite"
 
 export function BlogPost(props) {
   const post = props.node
+
   const [open, setOpen] = useState(false)
   const [scroll, setScroll] = useState("paper")
 
@@ -40,7 +41,7 @@ export function BlogPost(props) {
 
   return (
     <>
-      <Card>
+      <Card sx={{ bgcolor: "background.paper", mb: "5%" }}>
         <CardActionArea onClick={handleClickOpen("paper")}>
           <CardContent>
             <h1>{post.title}</h1>
@@ -57,6 +58,7 @@ export function BlogPost(props) {
           {post.reading_time} min
         </CardActions>
       </Card>
+      {/* Full Post Dialog */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -83,15 +85,5 @@ export function BlogPost(props) {
         </DialogActions>
       </Dialog>
     </>
-    // Full Post Dialog
   )
 }
-
-// export function FullPost(props) {
-//   const post = props.node
-//   const [scroll, setScroll] = useState("paper")
-
-//   return (
-
-//   )
-// }
