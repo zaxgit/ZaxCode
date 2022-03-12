@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useMemo } from "react"
+import React, { useState, createContext, useMemo } from "react"
 import { graphql } from "gatsby"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { Box, Button, TextField, useMediaQuery } from "@mui/material"
@@ -47,9 +47,13 @@ export const query = graphql`
     }
   }
 `
-//SET STATES
+//SET CONTEXT
+export const ColorModeContext = createContext()
+console.log(ColorModeContext)
 
 const IndexPage = ({ data }) => {
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)")
+  const [mode, setMode] = useState({ prefersDark })
   // create variable for project and blog post queries
   const projects = data.projects.edges
   const blogPosts = data.blog.edges
@@ -57,13 +61,13 @@ const IndexPage = ({ data }) => {
   /** SETUP STATE */
   const [tab, setTab] = useState("Projects")
   const [query, setQuery] = useState("")
-  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)")
 
-  const theme = useMemo(
+  // MUI THEME
+  let theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode: prefersDark ? "dark" : "light",
+          mode: mode ? "dark" : "light",
           primary: {
             main: "#ec4a50",
           },
@@ -79,10 +83,8 @@ const IndexPage = ({ data }) => {
           },
         },
       }),
-    [prefersDark]
+    [mode]
   )
-
-  // CHECK MODE PREFERNCE
 
   // Render content dynamicly between tabs
   const content = () => {
@@ -140,42 +142,42 @@ const IndexPage = ({ data }) => {
   }
 
   return (
-    // <ColorModeContext.Provider>
-    <ThemeProvider theme={theme}>
-      <Layout>
-        <Seo title="Home" />
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
+    <ColorModeContext.Provider value={{ mode, setMode }}>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <Seo title="Home" />
           <Box
             sx={{
-              minWidth: "50%",
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
+              justifyContent: "center",
             }}
           >
-            <Button sx={{ p: "15px" }} onClick={() => setTab("About")}>
-              about
-            </Button>
-            <Button sx={{ p: "15px" }} onClick={() => setTab("Projects")}>
-              projects
-            </Button>
-            <Button sx={{ p: "15px" }} onClick={() => setTab("Blog")}>
-              blog
-            </Button>
-            <Button sx={{ p: "15px" }} onClick={() => setTab("Resume")}>
-              resume
-            </Button>
+            <Box
+              sx={{
+                minWidth: "50%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <Button sx={{ p: "15px" }} onClick={() => setTab("About")}>
+                about
+              </Button>
+              <Button sx={{ p: "15px" }} onClick={() => setTab("Projects")}>
+                projects
+              </Button>
+              <Button sx={{ p: "15px" }} onClick={() => setTab("Blog")}>
+                blog
+              </Button>
+              <Button sx={{ p: "15px" }} onClick={() => setTab("Resume")}>
+                resume
+              </Button>
+            </Box>
           </Box>
-        </Box>
-        <Container>{content()}</Container>
-      </Layout>
-    </ThemeProvider>
-    // </ColorModeContext.Provider>
+          <Container>{content()}</Container>
+        </Layout>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   )
 }
 
