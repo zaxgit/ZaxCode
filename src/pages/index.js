@@ -1,7 +1,7 @@
-import React, { useState, createContext, useMemo } from "react"
+import React, { useState, createContext, useMemo, useEffect } from "react"
 import { graphql } from "gatsby"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
-import { Box, Button, TextField, useMediaQuery } from "@mui/material"
+import { Box, Button, TextField } from "@mui/material"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { ProjectCard } from "../components/projectCard"
@@ -49,11 +49,27 @@ export const query = graphql`
 `
 //SET CONTEXT
 export const ColorModeContext = createContext()
-console.log(ColorModeContext)
 
 const IndexPage = ({ data }) => {
-  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)")
-  const [mode, setMode] = useState({ prefersDark })
+  const [mode, setMode] = useState(true)
+  const colorMode = localStorage.getItem("color mode")
+
+  useEffect(() => {
+    if (colorMode === "true") {
+      setMode(true)
+    } else {
+      setMode(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (mode === true) {
+      localStorage.setItem("color mode", true)
+    } else {
+      localStorage.setItem("color mode", false)
+    }
+  }, [mode])
+
   // create variable for project and blog post queries
   const projects = data.projects.edges
   const blogPosts = data.blog.edges
