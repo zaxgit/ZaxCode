@@ -29,3 +29,7 @@
   flex-flow: row nowrap;
   justify-content: space-around;
 }
+
+#copyable_email {
+  cursor: pointer;
+}

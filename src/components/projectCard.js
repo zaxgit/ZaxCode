@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react"
-import ReactDOM from "react-dom"
-// import "./projectCard.css"
 import {
   Card,
   CardActionArea,
@@ -9,48 +7,48 @@ import {
   CardActions,
   Collapse,
   IconButton,
+  Typography,
 } from "@mui/material"
-import FavoriteIcon from "@mui/icons-material/Favorite"
+import { Like } from "./like.js"
+// import FavoriteIcon from "@mui/icons-material/Favorite"
 
 export function ProjectCard(props) {
   const post = props.node
-  const [expanded, setExpanded] = React.useState(false)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
+  const [expanded, setExpanded] = useState(false)
+  const [liked, setLiked] = useState(false)
 
   return (
     <Card
       sx={{
         minWidth: 300,
-        maxWidth: 300,
-        display: "inline-block",
+        maxWidth: 1000,
+        mb: 10,
       }}
     >
-      {/* setup click event for action area to handle collapse */}
       <CardActionArea
-        onClick={handleExpandClick}
+        onClick={() => setExpanded(!expanded)}
         aria-label="show more"
         aria-expanded={expanded}
       >
         <CardMedia
           component="img"
-          height="150"
+          height="250"
           image={post.feature_image}
           alt={post.title}
         ></CardMedia>
         <CardContent>
-          {post.title}
-          {post.reading_time} min
+          <Typography variant="h5" sx={{ display: "inline-block" }}>
+            {post.title}
+          </Typography>
+          <Typography variant="body2" sx={{ ml: 5, display: "inline-block" }}>
+            {post.reading_time} min
+          </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <IconButton>
-          <FavoriteIcon aria-label="like" />
-        </IconButton>
+        <Like />
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit sx={{ p: 3 }}>
         {post.excerpt}
       </Collapse>
     </Card>

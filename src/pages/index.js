@@ -1,7 +1,7 @@
 import React, { useState, createContext, useMemo, useEffect } from "react"
 import { graphql } from "gatsby"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
-import { Box, Button, TextField } from "@mui/material"
+import { Box, Button, TextField, Typography } from "@mui/material"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { ProjectCard } from "../components/projectCard"
@@ -51,9 +51,11 @@ export const query = graphql`
 export const ColorModeContext = createContext()
 
 const IndexPage = ({ data }) => {
+  // STATE FOR COLOR MODE
   const [mode, setMode] = useState(true)
   const colorMode = localStorage.getItem("color mode")
 
+  //SET STATE MODE TO LOCAL STORAGE VALUE
   useEffect(() => {
     if (colorMode === "true") {
       setMode(true)
@@ -62,6 +64,7 @@ const IndexPage = ({ data }) => {
     }
   }, [])
 
+  // UPDATE LOCAL STORAGE VALUE
   useEffect(() => {
     if (mode === true) {
       localStorage.setItem("color mode", true)
@@ -70,13 +73,63 @@ const IndexPage = ({ data }) => {
     }
   }, [mode])
 
+  //CREATE TAGS FOR LANGUAGES OR SKILLS
+
+  const resume = {
+    technical: {
+      skill1: "html",
+      skill2: "CSS",
+      skill3: "Javascript",
+      skill4: "React",
+      skill5: "Wordpress",
+      skill6: "PHP",
+      skill7: "Git",
+      skill8: "Node",
+    },
+    soft: {
+      skill1: "Attention to detail",
+      skill2: "Problem Solving",
+      skill3: "Quick to grasp new concepts",
+      skill4: "Effective communicator",
+    },
+    experience: {
+      zaxcode: {
+        name: "ZaxCode",
+        time: "2019 - present",
+        employment: "Self employed Front End Developer",
+        duties: {},
+      },
+      stlvapor: {
+        name: "STLVapor",
+        time: "8/5/19 - present",
+        employment: "Sales Representitve",
+        duties: {
+          d1: "Inventory management",
+          d2: "Customer Service",
+          d3: "Troubleshooting customer device issues",
+        },
+      },
+      point: {
+        name: "Point Roofing and Restoration",
+        time: "2/4/18 - 8/5/19",
+        employment: "Project Manager",
+        duties: {
+          d1: "Residential and commercial property inspections",
+          d2: "Documentation of discovered damage",
+          d3: "Project management",
+          d4: "Lead procurement and sales",
+        },
+      },
+    },
+  }
   // create variable for project and blog post queries
   const projects = data.projects.edges
   const blogPosts = data.blog.edges
 
-  /** SETUP STATE */
+  //
   const [tab, setTab] = useState("Projects")
   const [query, setQuery] = useState("")
+  const [liked, setLiked] = useState(false)
 
   // MUI THEME
   let theme = useMemo(
@@ -98,32 +151,39 @@ const IndexPage = ({ data }) => {
             },
           },
         },
+        spacing: 5,
       }),
     [mode]
   )
 
   // Render content dynamicly between tabs
   const content = () => {
+    const palette = theme.palette
     switch (tab) {
       case "About":
         return (
-          <Box>
+          <Box sx={{ color: palette.text.primary }}>
             <img src="#" alt="it's me" />
-            <p>Stuff and things about me</p>
+            <Typography>Stuff and things about me</Typography>
           </Box>
         )
       case "Projects":
         return (
           <Box>
-            {projects.map(project => {
-              return <ProjectCard key={project.uuid} {...project} />
-            })}
+            <Box
+              sx={{
+                left: "8%",
+                transform: "translateX(8%)",
+              }}
+            >
+              {projects.map(project => {
+                return <ProjectCard key={project.uuid} {...project} />
+              })}
+            </Box>
           </Box>
         )
       case "Blog":
         return (
-          // <div className="blogposts_wrapper">
-          // <div className="search_container">
           <Box>
             <Box
               sx={{
@@ -147,11 +207,19 @@ const IndexPage = ({ data }) => {
                 return <BlogPost key={post.uuid} {...post} />
               }
             })}
-            {/* </div> */}
           </Box>
         )
       case "Resume":
-        return "Resume"
+        return (
+          <Box sx={{ color: palette.text.primary }}>
+            <Box>
+              <Typography>Technical Knowledge</Typography>
+              <Box></Box>
+            </Box>
+            <Box></Box>
+            <Box></Box>
+          </Box>
+        )
       default:
         return null
     }
