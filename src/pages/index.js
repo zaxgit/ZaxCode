@@ -1,7 +1,13 @@
 import React, { useState, createContext, useMemo, useEffect } from "react"
 import { graphql } from "gatsby"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
-import { Box, Button, TextField, Typography } from "@mui/material"
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from "@mui/material"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { ProjectCard } from "../components/projectCard"
@@ -52,7 +58,8 @@ export const ColorModeContext = createContext()
 
 const IndexPage = ({ data }) => {
   // STATE FOR COLOR MODE
-  const [mode, setMode] = useState(true)
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)")
+  const [mode, setMode] = useState(prefersDark)
   const colorMode = localStorage.getItem("color mode")
 
   //SET STATE MODE TO LOCAL STORAGE VALUE
@@ -129,7 +136,6 @@ const IndexPage = ({ data }) => {
   //
   const [tab, setTab] = useState("Projects")
   const [query, setQuery] = useState("")
-  const [liked, setLiked] = useState(false)
 
   // MUI THEME
   let theme = useMemo(

@@ -8,27 +8,27 @@ import { AiFillCodepenCircle } from "@react-icons/all-files/Ai/AiFillCodepenCirc
 export default function Footer() {
   const theme = useTheme()
   const [copied, setCopied] = useState("")
-  const [show, setShow] = useState(false)
-  const copyAlert = useEffect(() => {
-    if (show === false) {
-      setShow(true)
-      return (
-        <Typography
-          sx={{
-            position: "absolute",
-            bottom: 10,
-            left: 10,
-            color: theme.palette.primary.main,
-          }}
-          variant="body1"
-        >
-          Click to Copy
-        </Typography>
-      )
-    } else {
-      setShow(false)
-    }
-  }, [show, theme])
+  // const [show, setShow] = useState(false)
+  // const copyAlert = useEffect(() => {
+  //   if (show === false) {
+  //     setShow(true)
+  //     return (
+  //       <Typography
+  //         sx={{
+  //           position: "absolute",
+  //           bottom: 10,
+  //           left: 10,
+  //           color: theme.palette.primary.main,
+  //         }}
+  //         variant="body1"
+  //       >
+  //         Click to Copy
+  //       </Typography>
+  //     )
+  //   } else {
+  //     setShow(false)
+  //   }
+  // }, [show])
 
   const copy = async () => {
     setCopied(document.getElementById("copyable_email").innerHtml)
@@ -51,7 +51,7 @@ export default function Footer() {
         <Box sx={{ position: "relative" }}>
           <Typography
             id="copyable_email"
-            onMouseEnter={copyAlert}
+            // onMouseEnter={copyAlert}
             onClick={copy}
             variant="h6"
           >
