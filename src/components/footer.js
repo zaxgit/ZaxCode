@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import "./footer.css"
 import { Box, IconButton, Typography, useTheme } from "@mui/material"
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
@@ -8,33 +8,24 @@ import { AiFillCodepenCircle } from "@react-icons/all-files/Ai/AiFillCodepenCirc
 export default function Footer() {
   const theme = useTheme()
   const [copied, setCopied] = useState("")
-  // const [show, setShow] = useState(false)
-  // const copyAlert = useEffect(() => {
-  //   if (show === false) {
-  //     setShow(true)
-  //     return (
-  //       <Typography
-  //         sx={{
-  //           position: "absolute",
-  //           bottom: 10,
-  //           left: 10,
-  //           color: theme.palette.primary.main,
-  //         }}
-  //         variant="body1"
-  //       >
-  //         Click to Copy
-  //       </Typography>
-  //     )
-  //   } else {
-  //     setShow(false)
-  //   }
-  // }, [show])
+  const [show, setShow] = useState(false)
 
   const copy = async () => {
     setCopied(document.getElementById("copyable_email").innerHtml)
     await navigator.clipboard.writeText(copied)
     alert("Copied!")
   }
+  const background = show ? theme.palette.secondary.main : "transparent"
+
+  useEffect(() => {
+    const popUp = document.getElementById("popup")
+
+    if (show === true && popUp.classList.contains("hide")) {
+      popUp.classList.remove("hide")
+    } else {
+      popUp.classList.add("hide")
+    }
+  }, [show])
 
   return (
     <Box
@@ -50,14 +41,32 @@ export default function Footer() {
       <Box sx={{ maxWidth: 300, p: 5 }}>
         <Box sx={{ position: "relative" }}>
           <Typography
+            variant-="body2"
+            className="hide"
+            id="popup"
+            sx={{
+              position: "absolute",
+              bottom: 40,
+              left: 60,
+              color: theme.palette.primary.main,
+              whitespace: "nowrap",
+            }}
+          >
+            Click to copy!
+          </Typography>
+          {/* <Box
+            sx={{ borderRadius: 3, bgcolor: theme.palette.secondary.main }}
+          ></Box> */}
+          <Typography
+            sx={{ bgcolor: background, borderRadius: 3, px: 1 }}
             id="copyable_email"
-            // onMouseEnter={copyAlert}
+            onMouseEnter={() => setShow(true)}
+            onMouseLeave={() => setShow(false)}
             onClick={copy}
             variant="h6"
           >
             zwalter@zaxcode.dev
           </Typography>
-          <Box sx={{ bgcolor: "#ffffff06" }}></Box>
         </Box>
         <Box
           sx={{

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import {
   Card,
   CardActionArea,
@@ -6,16 +6,13 @@ import {
   CardContent,
   CardActions,
   Collapse,
-  IconButton,
   Typography,
 } from "@mui/material"
 import { Like } from "./like.js"
-// import FavoriteIcon from "@mui/icons-material/Favorite"
 
 export function ProjectCard(props) {
   const post = props.node
   const [expanded, setExpanded] = useState(false)
-  const [liked, setLiked] = useState(false)
 
   return (
     <Card

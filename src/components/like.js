@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { IconButton, useTheme } from "@mui/material"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 
-export const Like = props => {
-  const post props.node
+export const Like = () => {
   const theme = useTheme()
   const [liked, setLiked] = useState(false)
   // const isLiked = localStorage.getItem("isLiked")
-
 
   // useEffect(() => {
   //   if (liked === true) {

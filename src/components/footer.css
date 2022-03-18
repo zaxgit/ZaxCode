@@ -33,3 +33,7 @@
 #copyable_email {
   cursor: pointer;
 }
+
+.hide {
+  display: none;
+}

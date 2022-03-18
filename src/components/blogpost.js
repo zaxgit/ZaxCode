@@ -13,6 +13,7 @@ import {
   Button,
 } from "@mui/material"
 import FavoriteIcon from "@mui/icons-material/Favorite"
+import { Like } from "./like.js"
 
 // import "./blogpost.css"
 
@@ -52,9 +53,7 @@ export function BlogPost(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <IconButton>
-            <FavoriteIcon />
-          </IconButton>
+          <Like />
           {post.reading_time} min
         </CardActions>
       </Card>

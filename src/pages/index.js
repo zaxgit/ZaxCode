@@ -183,7 +183,7 @@ const IndexPage = ({ data }) => {
               }}
             >
               {projects.map(project => {
-                return <ProjectCard key={project.uuid} {...project} />
+                return <ProjectCard key={project.node.uuid} {...project} />
               })}
             </Box>
           </Box>
@@ -203,7 +203,6 @@ const IndexPage = ({ data }) => {
                 variant="filled"
                 onChange={e => setQuery(e.target.value.toLowerCase())}
               />
-              {/* </div> */}
             </Box>
             {blogPosts.map(post => {
               if (query) {
