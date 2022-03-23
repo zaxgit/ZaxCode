@@ -43,7 +43,7 @@ export function ProjectCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Like />
+        <Like key={post.uuid} />
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit sx={{ p: 3 }}>
         {post.excerpt}

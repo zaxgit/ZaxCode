@@ -83,15 +83,15 @@ const IndexPage = ({ data }) => {
   //CREATE TAGS FOR LANGUAGES OR SKILLS
 
   const resume = {
-    technical: {
-      skill1: "html",
-      skill2: "CSS",
-      skill3: "Javascript",
-      skill4: "React",
-      skill5: "Wordpress",
-      skill6: "PHP",
-      skill7: "Git",
-      skill8: "Node",
+    technicals: {
+      skill0: "html",
+      skill1: "CSS",
+      skill2: "Javascript",
+      skill3: "React",
+      skill4: "Wordpress",
+      skill5: "PHP",
+      skill6: "Git",
+      skill7: "Node",
     },
     soft: {
       skill1: "Attention to detail",
@@ -100,6 +100,7 @@ const IndexPage = ({ data }) => {
       skill4: "Effective communicator",
     },
     experience: {
+      dutyName: "Duties:",
       zaxcode: {
         name: "ZaxCode",
         time: "2019 - present",
@@ -168,9 +169,25 @@ const IndexPage = ({ data }) => {
     switch (tab) {
       case "About":
         return (
-          <Box sx={{ color: palette.text.primary }}>
+          <Box
+            sx={{
+              color: palette.text.primary,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <img src="#" alt="it's me" />
-            <Typography>Stuff and things about me</Typography>
+            <Typography sx={{ maxWidth: 500 }}>
+              Hello! I'm Zach and I've been teaching myself front end
+              development for a couple years. It started off as a hobby, and I
+              started taking more seriously during the pandemic. Coding is
+              challenging. Quite often you have a completely new problem to
+              solve, the more you solve, the more little pieces you pick up
+              along the way. it's like a puzzle except you get to decide what
+              pieces you want to build with. This Portfoilio is my first
+              React/Gatsby project. It's been fun, challenging, and occasionally
+              a pain in the ass, but I think that's what i love aobut it.
+            </Typography>
           </Box>
         )
       case "Projects":
@@ -183,7 +200,7 @@ const IndexPage = ({ data }) => {
               }}
             >
               {projects.map(project => {
-                return <ProjectCard key={project.node.uuid} {...project} />
+                return <ProjectCard key={project.node.slug} {...project} />
               })}
             </Box>
           </Box>
@@ -207,9 +224,9 @@ const IndexPage = ({ data }) => {
             {blogPosts.map(post => {
               if (query) {
                 if (post.node.title.toLowerCase().includes(query))
-                  return <BlogPost key={post.uuid} {...post} />
+                  return <BlogPost key={post.node.slug} {...post} />
               } else {
-                return <BlogPost key={post.uuid} {...post} />
+                return <BlogPost key={post.node.slug} {...post} />
               }
             })}
           </Box>
@@ -217,12 +234,149 @@ const IndexPage = ({ data }) => {
       case "Resume":
         return (
           <Box sx={{ color: palette.text.primary }}>
-            <Box>
-              <Typography>Technical Knowledge</Typography>
-              <Box></Box>
+            <Box sx={{ ml: 25 }}>
+              <Typography
+                sx={{ color: palette.primary.main, mt: 5 }}
+                variant="h4"
+              >
+                Technical Knowledge
+              </Typography>
+              <Box sx={{ p: 5 }}>
+                <Typography variant="body1">
+                  {resume.technicals.skill0}
+                </Typography>
+                <Typography variant="body1">
+                  {resume.technicals.skill1}
+                </Typography>
+                <Typography variant="body1">
+                  {resume.technicals.skill2}
+                </Typography>
+                <Typography variant="body1">
+                  {resume.technicals.skill3}
+                </Typography>
+                <Typography variant="body1">
+                  {resume.technicals.skill4}
+                </Typography>
+                <Typography variant="body1">
+                  {resume.technicals.skill5}
+                </Typography>
+                <Typography variant="body1">
+                  {resume.technicals.skill6}
+                </Typography>
+                <Typography variant="body1">
+                  {resume.technicals.skill7}
+                </Typography>
+              </Box>
             </Box>
-            <Box></Box>
-            <Box></Box>
+            <Box sx={{ ml: 75 }}>
+              <Typography
+                sx={{ color: palette.primary.main, mt: 5 }}
+                variant="h4"
+              >
+                Soft Skills
+              </Typography>
+              <Box sx={{ p: 5 }}>
+                <Typography variant="body1">{resume.soft.skill1}</Typography>
+                <Typography variant="body1">{resume.soft.skill2}</Typography>
+                <Typography variant="body1">{resume.soft.skill3}</Typography>
+                <Typography variant="body1">{resume.soft.skill4}</Typography>
+              </Box>
+            </Box>
+            <Box sx={{ ml: 125 }}>
+              <Typography
+                sx={{ color: palette.primary.main, mt: 5 }}
+                variant="h4"
+              >
+                Experience
+              </Typography>
+              <Box sx={{ p: 5 }}>
+                <Box>
+                  <Typography
+                    sx={{ color: palette.secondary.main }}
+                    variant="h5"
+                  >
+                    {resume.experience.zaxcode.name}
+                  </Typography>
+                  <Box>
+                    <Typography variant="body1">
+                      {resume.experience.zaxcode.time}
+                    </Typography>
+                    <Typography>
+                      {resume.experience.zaxcode.employment}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box>
+                  <Typography
+                    sx={{ color: palette.secondary.main }}
+                    variant="h5"
+                  >
+                    {resume.experience.stlvapor.name}
+                  </Typography>
+                  <Box>
+                    <Typography variant="body1">
+                      {resume.experience.stlvapor.time}
+                    </Typography>
+                    <Typography>
+                      {resume.experience.stlvapor.employment}
+                    </Typography>
+                    <Box>
+                      <Typography
+                        sx={{ color: palette.primary.main }}
+                        variant="h6"
+                      >
+                        {resume.experience.dutyName}
+                      </Typography>
+                      <Typography variant="body2">
+                        {resume.experience.stlvapor.duties.d1}
+                      </Typography>
+                      <Typography variant="body2">
+                        {resume.experience.stlvapor.duties.d2}
+                      </Typography>
+                      <Typography variant="body2">
+                        {resume.experience.stlvapor.duties.d3}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box>
+                  <Typography
+                    sx={{ color: palette.secondary.main }}
+                    variant="h5"
+                  >
+                    {resume.experience.point.name}
+                  </Typography>
+                  <Box>
+                    <Typography variant="body1">
+                      {resume.experience.point.time}
+                    </Typography>
+                    <Typography>
+                      {resume.experience.point.employment}
+                    </Typography>
+                    <Box>
+                      <Typography
+                        sx={{ color: palette.primary.main }}
+                        variant="h6"
+                      >
+                        {resume.experience.dutyName}
+                      </Typography>
+                      <Typography variant="body2">
+                        {resume.experience.point.duties.d1}
+                      </Typography>
+                      <Typography variant="body2">
+                        {resume.experience.point.duties.d2}
+                      </Typography>
+                      <Typography variant="body2">
+                        {resume.experience.point.duties.d3}
+                      </Typography>
+                      <Typography variant="body2">
+                        {resume.experience.point.duties.d4}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
           </Box>
         )
       default:

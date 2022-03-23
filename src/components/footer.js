@@ -54,9 +54,6 @@ export default function Footer() {
           >
             Click to copy!
           </Typography>
-          {/* <Box
-            sx={{ borderRadius: 3, bgcolor: theme.palette.secondary.main }}
-          ></Box> */}
           <Typography
             sx={{ bgcolor: background, borderRadius: 3, px: 1 }}
             id="copyable_email"
