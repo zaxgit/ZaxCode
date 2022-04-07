@@ -13,7 +13,6 @@ import { Like } from "./like.js"
 export function ProjectCard(props) {
   const post = props.node
   const [expanded, setExpanded] = useState(false)
-
   return (
     <Card
       sx={{
@@ -43,7 +42,7 @@ export function ProjectCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Like key={post.uuid} />
+        <Like hasId={props.likedId} />
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit sx={{ p: 3 }}>
         {post.excerpt}

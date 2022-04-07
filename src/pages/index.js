@@ -1,5 +1,13 @@
-import React, { useState, createContext, useMemo, useEffect } from "react"
+import React, {
+  useState,
+  createContext,
+  useMemo,
+  useEffect,
+  useReducer,
+  Profiler,
+} from "react"
 import { graphql } from "gatsby"
+import { Img } from "gatsby-image"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import {
   Box,
@@ -51,6 +59,16 @@ export const query = graphql`
         }
       }
     }
+    allGhostAuthor {
+      edges {
+        node {
+          profile_image
+        }
+      }
+    }
+    ghostAuthor {
+      profile_image
+    }
   }
 `
 //SET CONTEXT
@@ -80,62 +98,71 @@ const IndexPage = ({ data }) => {
     }
   }, [mode])
 
+  // MAP LIKE COMPONENTS?
   //CREATE TAGS FOR LANGUAGES OR SKILLS
-
   const resume = {
-    technicals: {
-      skill0: "html",
-      skill1: "CSS",
-      skill2: "Javascript",
-      skill3: "React",
-      skill4: "Wordpress",
-      skill5: "PHP",
-      skill6: "Git",
-      skill7: "Node",
-    },
-    soft: {
-      skill1: "Attention to detail",
-      skill2: "Problem Solving",
-      skill3: "Quick to grasp new concepts",
-      skill4: "Effective communicator",
-    },
-    experience: {
-      dutyName: "Duties:",
-      zaxcode: {
+    technicals: [
+      "CSS",
+      "Javascript",
+      "React",
+      "Wordpress",
+      "PHP",
+      "Git",
+      "Node",
+    ],
+    softs: [
+      "Attention to detail",
+      "Problem Solving",
+      "Quick to grasp new concepts",
+      "Effective communicator",
+    ],
+    experience: [
+      {
         name: "ZaxCode",
         time: "2019 - present",
         employment: "Self employed Front End Developer",
-        duties: {},
+        duties: ["Web development", "Debugging"],
       },
-      stlvapor: {
-        name: "STLVapor",
+      {
+        name: "STL Vapor",
         time: "8/5/19 - present",
         employment: "Sales Representitve",
-        duties: {
-          d1: "Inventory management",
-          d2: "Customer Service",
-          d3: "Troubleshooting customer device issues",
-        },
+        duties: [
+          "Inventory management",
+          "Customer Service",
+          "Troubleshooting customer device issues",
+        ],
       },
-      point: {
+      // {
+      //   title: "point",
+      //   value: [
+      //     {
+      //       "title": "name",
+      //       "value": "Point Roofing and Restoration"
+      //     }
+      //   ]
+      // }
+      {
         name: "Point Roofing and Restoration",
         time: "2/4/18 - 8/5/19",
         employment: "Project Manager",
-        duties: {
-          d1: "Residential and commercial property inspections",
-          d2: "Documentation of discovered damage",
-          d3: "Project management",
-          d4: "Lead procurement and sales",
-        },
+        duties: [
+          "Residential and commercial property inspections",
+          "Documentation of discovered damage",
+          "Project management",
+          "Lead procurement and sales",
+        ],
       },
-    },
+    ],
   }
   // create variable for project and blog post queries
   const projects = data.projects.edges
   const blogPosts = data.blog.edges
-
-  //
-  const [tab, setTab] = useState("Projects")
+  const profile = data.ghostAuthor.profile_image
+  console.log(profile)
+  // STATE FOR WHICH DATA IS SHOWN FOR EACH TAB
+  const [tab, setTab] = useState("About")
+  // STATE FOR POST FILTERING
   const [query, setQuery] = useState("")
 
   // MUI THEME
@@ -163,6 +190,11 @@ const IndexPage = ({ data }) => {
     [mode]
   )
 
+  // LIKE BUTTON STATE
+  // LIKE BUTTON FUNCTIONALITY
+  // const likeButton = () => {
+  //   if()
+  // }
   // Render content dynamicly between tabs
   const content = () => {
     const palette = theme.palette
@@ -176,7 +208,9 @@ const IndexPage = ({ data }) => {
               justifyContent: "center",
             }}
           >
-            <img src="#" alt="it's me" />
+            <Box sx={{ borderRadius: 20, overFlow: "hidden" }}>
+              <img src={profile} alt="me,myself and I" height="100" />
+            </Box>
             <Typography sx={{ maxWidth: 500 }}>
               Hello! I'm Zach and I've been teaching myself front end
               development for a couple years. It started off as a hobby, and I
@@ -200,7 +234,13 @@ const IndexPage = ({ data }) => {
               }}
             >
               {projects.map(project => {
-                return <ProjectCard key={project.node.slug} {...project} />
+                return (
+                  <ProjectCard
+                    likedId={project.node.uuid}
+                    key={project.node.slug}
+                    {...project}
+                  />
+                )
               })}
             </Box>
           </Box>
@@ -233,147 +273,78 @@ const IndexPage = ({ data }) => {
         )
       case "Resume":
         return (
-          <Box sx={{ color: palette.text.primary }}>
-            <Box sx={{ ml: 25 }}>
-              <Typography
-                sx={{ color: palette.primary.main, mt: 5 }}
-                variant="h4"
-              >
-                Technical Knowledge
-              </Typography>
-              <Box sx={{ p: 5 }}>
-                <Typography variant="body1">
-                  {resume.technicals.skill0}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Box sx={{ color: palette.text.primary }}>
+              <Box>
+                <Typography
+                  sx={{ color: palette.primary.main, mt: 5 }}
+                  variant="h4"
+                >
+                  Technical Knowledge
                 </Typography>
-                <Typography variant="body1">
-                  {resume.technicals.skill1}
-                </Typography>
-                <Typography variant="body1">
-                  {resume.technicals.skill2}
-                </Typography>
-                <Typography variant="body1">
-                  {resume.technicals.skill3}
-                </Typography>
-                <Typography variant="body1">
-                  {resume.technicals.skill4}
-                </Typography>
-                <Typography variant="body1">
-                  {resume.technicals.skill5}
-                </Typography>
-                <Typography variant="body1">
-                  {resume.technicals.skill6}
-                </Typography>
-                <Typography variant="body1">
-                  {resume.technicals.skill7}
-                </Typography>
-              </Box>
-            </Box>
-            <Box sx={{ ml: 75 }}>
-              <Typography
-                sx={{ color: palette.primary.main, mt: 5 }}
-                variant="h4"
-              >
-                Soft Skills
-              </Typography>
-              <Box sx={{ p: 5 }}>
-                <Typography variant="body1">{resume.soft.skill1}</Typography>
-                <Typography variant="body1">{resume.soft.skill2}</Typography>
-                <Typography variant="body1">{resume.soft.skill3}</Typography>
-                <Typography variant="body1">{resume.soft.skill4}</Typography>
-              </Box>
-            </Box>
-            <Box sx={{ ml: 125 }}>
-              <Typography
-                sx={{ color: palette.primary.main, mt: 5 }}
-                variant="h4"
-              >
-                Experience
-              </Typography>
-              <Box sx={{ p: 5 }}>
-                <Box>
-                  <Typography
-                    sx={{ color: palette.secondary.main }}
-                    variant="h5"
-                  >
-                    {resume.experience.zaxcode.name}
-                  </Typography>
-                  <Box>
-                    <Typography variant="body1">
-                      {resume.experience.zaxcode.time}
-                    </Typography>
-                    <Typography>
-                      {resume.experience.zaxcode.employment}
-                    </Typography>
-                  </Box>
+                <Box sx={{ display: "flex", flexFlow: "row wrap" }}>
+                  {resume.technicals.map(technical => {
+                    return (
+                      <Typography sx={{ pl: 3, pt: 1 }}>{technical}</Typography>
+                    )
+                  })}
                 </Box>
-                <Box>
-                  <Typography
-                    sx={{ color: palette.secondary.main }}
-                    variant="h5"
-                  >
-                    {resume.experience.stlvapor.name}
-                  </Typography>
-                  <Box>
-                    <Typography variant="body1">
-                      {resume.experience.stlvapor.time}
-                    </Typography>
-                    <Typography>
-                      {resume.experience.stlvapor.employment}
-                    </Typography>
-                    <Box>
-                      <Typography
-                        sx={{ color: palette.primary.main }}
-                        variant="h6"
-                      >
-                        {resume.experience.dutyName}
-                      </Typography>
-                      <Typography variant="body2">
-                        {resume.experience.stlvapor.duties.d1}
-                      </Typography>
-                      <Typography variant="body2">
-                        {resume.experience.stlvapor.duties.d2}
-                      </Typography>
-                      <Typography variant="body2">
-                        {resume.experience.stlvapor.duties.d3}
-                      </Typography>
-                    </Box>
-                  </Box>
+              </Box>
+              <Box sx={{}}>
+                <Typography
+                  sx={{ color: palette.primary.main, mt: 5 }}
+                  variant="h4"
+                >
+                  Soft Skills
+                </Typography>
+                <Box sx={{ display: "flex", flexFlow: "row wrap" }}>
+                  {resume.softs.map(soft => {
+                    return <Typography sx={{ pl: 3, pt: 1 }}>{soft}</Typography>
+                  })}
                 </Box>
-                <Box>
-                  <Typography
-                    sx={{ color: palette.secondary.main }}
-                    variant="h5"
-                  >
-                    {resume.experience.point.name}
-                  </Typography>
-                  <Box>
-                    <Typography variant="body1">
-                      {resume.experience.point.time}
-                    </Typography>
-                    <Typography>
-                      {resume.experience.point.employment}
-                    </Typography>
-                    <Box>
-                      <Typography
-                        sx={{ color: palette.primary.main }}
-                        variant="h6"
-                      >
-                        {resume.experience.dutyName}
-                      </Typography>
-                      <Typography variant="body2">
-                        {resume.experience.point.duties.d1}
-                      </Typography>
-                      <Typography variant="body2">
-                        {resume.experience.point.duties.d2}
-                      </Typography>
-                      <Typography variant="body2">
-                        {resume.experience.point.duties.d3}
-                      </Typography>
-                      <Typography variant="body2">
-                        {resume.experience.point.duties.d4}
-                      </Typography>
-                    </Box>
-                  </Box>
+              </Box>
+              <Box sx={{}}>
+                <Typography
+                  sx={{ color: palette.primary.main, mt: 5 }}
+                  variant="h4"
+                >
+                  Experience
+                </Typography>
+                <Box sx={{ p: 5 }}>
+                  {resume.experience.map((exp, i) => {
+                    while (i < resume.experience.length) {
+                      return (
+                        <Box sx={{ p: 3 }}>
+                          <Typography
+                            sx={{ color: palette.secondary.main }}
+                            variant="h5"
+                          >
+                            {exp.name}
+                          </Typography>
+                          <Box sx={{ p: 5 }}>
+                            <Typography>{exp.employment}</Typography>
+                            <Typography variant="body1">{exp.time}</Typography>
+                          </Box>
+                          <Box sx={{ p: 5 }}>
+                            <Typography>Duties:</Typography>
+                            {exp?.duties?.map(d => {
+                              return (
+                                <Typography sx={{ pl: 3, pt: 1 }}>
+                                  {d}
+                                </Typography>
+                              )
+                            })}
+                          </Box>
+                        </Box>
+                      )
+                    }
+                  })}
                 </Box>
               </Box>
             </Box>

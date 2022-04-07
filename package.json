@@ -12,6 +12,7 @@
     "@react-icons/all-files": "^4.1.0",
     "framer-motion": "^6.2.1",
     "gatsby": "^4.5.4",
+    "gatsby-image": "^3.11.0",
     "gatsby-plugin-gatsby-cloud": "^4.5.2",
     "gatsby-plugin-ghost-images": "^2.0.2",
     "gatsby-plugin-image": "^2.5.2",

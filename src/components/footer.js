@@ -11,9 +11,12 @@ export default function Footer() {
   const [show, setShow] = useState(false)
 
   const copy = async () => {
-    setCopied(document.getElementById("copyable_email").innerHtml)
-    await navigator.clipboard.writeText(copied)
-    alert("Copied!")
+    if (copied !== "zwalter@zaxcode.dev") {
+      setCopied(document.getElementById("copyable_email").textContent)
+      alert("Copied!")
+    } else {
+      await navigator.clipboard.writeText(copied)
+    }
   }
   const background = show ? theme.palette.secondary.main : "transparent"
 
