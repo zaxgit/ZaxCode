@@ -4,22 +4,21 @@ import {
   CardContent,
   CardActionArea,
   CardActions,
-  IconButton,
   Dialog,
   DialogTitle,
   DialogActions,
   DialogContent,
   DialogContentText,
   Button,
+  useTheme,
 } from "@mui/material"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import { Like } from "./like.js"
 
 // import "./blogpost.css"
-
 export function BlogPost(props) {
   const post = props.node
-
+  const theme = useTheme()
   const [open, setOpen] = useState(false)
   const [scroll, setScroll] = useState("paper")
 
@@ -42,7 +41,14 @@ export function BlogPost(props) {
 
   return (
     <>
-      <Card sx={{ bgcolor: "background.paper", mb: "5%" }}>
+      <Card
+        sx={{
+          bgcolor: theme.palette.background.paper,
+          minWidth: "100%",
+          maxWidth: 1000,
+          mb: 10,
+        }}
+      >
         <CardActionArea onClick={handleClickOpen("paper")}>
           <CardContent>
             <h1>{post.title}</h1>
@@ -53,7 +59,7 @@ export function BlogPost(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Like />
+          <Like hasId={props.likedId} />
           {post.reading_time} min
         </CardActions>
       </Card>

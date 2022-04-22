@@ -32,13 +32,13 @@ export default function Footer() {
 
   return (
     <Box
+      className="footer"
       sx={{
-        boxShadow: 5,
         display: "flex",
         justifyContent: "center",
         flexGrow: 1,
         color: theme.palette.text.primary,
-        bgcolor: theme.palette.background.paper,
+        // bgcolor: theme.palette.background.paper,
       }}
     >
       <Box sx={{ maxWidth: 300, p: 5 }}>

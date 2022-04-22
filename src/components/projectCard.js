@@ -7,16 +7,19 @@ import {
   CardActions,
   Collapse,
   Typography,
+  useTheme,
 } from "@mui/material"
 import { Like } from "./like.js"
 
 export function ProjectCard(props) {
   const post = props.node
+  const theme = useTheme()
   const [expanded, setExpanded] = useState(false)
   return (
     <Card
       sx={{
-        minWidth: 300,
+        bgcolor: theme.palette.background.paper,
+        minWidth: "100%",
         maxWidth: 1000,
         mb: 10,
       }}

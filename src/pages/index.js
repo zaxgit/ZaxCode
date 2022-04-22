@@ -1,13 +1,5 @@
-import React, {
-  useState,
-  createContext,
-  useMemo,
-  useEffect,
-  useReducer,
-  Profiler,
-} from "react"
+import React, { useState, createContext, useMemo, useEffect } from "react"
 import { graphql } from "gatsby"
-import { Img } from "gatsby-image"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import {
   Box,
@@ -59,13 +51,6 @@ export const query = graphql`
         }
       }
     }
-    allGhostAuthor {
-      edges {
-        node {
-          profile_image
-        }
-      }
-    }
     ghostAuthor {
       profile_image
     }
@@ -102,9 +87,11 @@ const IndexPage = ({ data }) => {
   //CREATE TAGS FOR LANGUAGES OR SKILLS
   const resume = {
     technicals: [
+      "HTML",
       "CSS",
       "Javascript",
       "React",
+      "Gatsby",
       "Wordpress",
       "PHP",
       "Git",
@@ -115,6 +102,7 @@ const IndexPage = ({ data }) => {
       "Problem Solving",
       "Quick to grasp new concepts",
       "Effective communicator",
+      "Conflict Resolution",
     ],
     experience: [
       {
@@ -133,15 +121,6 @@ const IndexPage = ({ data }) => {
           "Troubleshooting customer device issues",
         ],
       },
-      // {
-      //   title: "point",
-      //   value: [
-      //     {
-      //       "title": "name",
-      //       "value": "Point Roofing and Restoration"
-      //     }
-      //   ]
-      // }
       {
         name: "Point Roofing and Restoration",
         time: "2/4/18 - 8/5/19",
@@ -159,9 +138,8 @@ const IndexPage = ({ data }) => {
   const projects = data.projects.edges
   const blogPosts = data.blog.edges
   const profile = data.ghostAuthor.profile_image
-  console.log(profile)
   // STATE FOR WHICH DATA IS SHOWN FOR EACH TAB
-  const [tab, setTab] = useState("About")
+  const [tab, setTab] = useState("Resume")
   // STATE FOR POST FILTERING
   const [query, setQuery] = useState("")
 
@@ -189,7 +167,6 @@ const IndexPage = ({ data }) => {
       }),
     [mode]
   )
-
   // LIKE BUTTON STATE
   // LIKE BUTTON FUNCTIONALITY
   // const likeButton = () => {
@@ -204,33 +181,60 @@ const IndexPage = ({ data }) => {
           <Box
             sx={{
               color: palette.text.primary,
+              width: "100%",
               display: "flex",
               justifyContent: "center",
             }}
           >
-            <Box sx={{ borderRadius: 20, overFlow: "hidden" }}>
-              <img src={profile} alt="me,myself and I" height="100" />
+            <Box
+              sx={{
+                width: "90%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
+                boxShadow: 2,
+                borderRadius: 2,
+                p: 10,
+                m: 5,
+              }}
+            >
+              <Box>
+                <img src={profile} alt="me,myself and I" height="350" />
+              </Box>
+              <Typography sx={{ maxWidth: 500 }}>
+                Hello! I'm Zach and I've been teaching myself front end
+                development for a couple years. It started off as a hobby, and I
+                started taking more seriously during the pandemic. Coding is
+                challenging. Quite often you have a completely new problem to
+                solve, the more you solve, the more little pieces you pick up
+                along the way. it's like a puzzle except you get to decide what
+                pieces you want to build with. This Portfoilio is my first
+                React/Gatsby project. It's been fun, challenging, and
+                occasionally a pain in the ass, but I think that's what i love
+                aobut it.
+              </Typography>
             </Box>
-            <Typography sx={{ maxWidth: 500 }}>
-              Hello! I'm Zach and I've been teaching myself front end
-              development for a couple years. It started off as a hobby, and I
-              started taking more seriously during the pandemic. Coding is
-              challenging. Quite often you have a completely new problem to
-              solve, the more you solve, the more little pieces you pick up
-              along the way. it's like a puzzle except you get to decide what
-              pieces you want to build with. This Portfoilio is my first
-              React/Gatsby project. It's been fun, challenging, and occasionally
-              a pain in the ass, but I think that's what i love aobut it.
-            </Typography>
           </Box>
         )
       case "Projects":
         return (
-          <Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Box
               sx={{
-                left: "8%",
-                transform: "translateX(8%)",
+                width: "90%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                boxShadow: 2,
+                borderRadius: 2,
+                p: 10,
+                m: 5,
               }}
             >
               {projects.map(project => {
@@ -247,28 +251,56 @@ const IndexPage = ({ data }) => {
         )
       case "Blog":
         return (
-          <Box>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Box
               sx={{
-                mt: "5%",
-                mb: "2.5%",
+                width: "90%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                bgcolor: theme.palette.background.paper,
+                boxShadow: 2,
+                borderRadius: 2,
+                p: 10,
+                m: 5,
               }}
             >
-              <TextField
-                id="filled-basic"
-                label="Search"
-                variant="filled"
-                onChange={e => setQuery(e.target.value.toLowerCase())}
-              />
+              <Box sx={{ width: "100%", mb: 5 }}>
+                <TextField
+                  id="filled-basic"
+                  label="Search"
+                  variant="filled"
+                  onChange={e => setQuery(e.target.value.toLowerCase())}
+                />
+              </Box>
+
+              {blogPosts.map(post => {
+                if (query) {
+                  if (post.node.title.toLowerCase().includes(query))
+                    return (
+                      <BlogPost
+                        likedId={post.node.uuid}
+                        key={post.node.slug}
+                        {...post}
+                      />
+                    )
+                } else {
+                  return (
+                    <BlogPost
+                      likedId={post.node.uuid}
+                      key={post.node.slug}
+                      {...post}
+                    />
+                  )
+                }
+              })}
             </Box>
-            {blogPosts.map(post => {
-              if (query) {
-                if (post.node.title.toLowerCase().includes(query))
-                  return <BlogPost key={post.node.slug} {...post} />
-              } else {
-                return <BlogPost key={post.node.slug} {...post} />
-              }
-            })}
           </Box>
         )
       case "Resume":
@@ -280,10 +312,23 @@ const IndexPage = ({ data }) => {
               alignItems: "center",
             }}
           >
-            <Box sx={{ color: palette.text.primary }}>
-              <Box>
+            <Box
+              sx={{
+                width: "90%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                boxShadow: 2,
+                borderRadius: 2,
+                p: 10,
+                m: 5,
+                bgcolor: theme.palette.background.paper,
+                color: palette.text.primary,
+              }}
+            >
+              <Box sx={{ width: "100%", mb: 10 }}>
                 <Typography
-                  sx={{ color: palette.primary.main, mt: 5 }}
+                  sx={{ color: palette.primary.main, mb: 3 }}
                   variant="h4"
                 >
                   Technical Knowledge
@@ -296,9 +341,9 @@ const IndexPage = ({ data }) => {
                   })}
                 </Box>
               </Box>
-              <Box sx={{}}>
+              <Box sx={{ width: "100%", mb: 10 }}>
                 <Typography
-                  sx={{ color: palette.primary.main, mt: 5 }}
+                  sx={{ color: palette.primary.main, mt: 5, mb: 3 }}
                   variant="h4"
                 >
                   Soft Skills
@@ -309,29 +354,29 @@ const IndexPage = ({ data }) => {
                   })}
                 </Box>
               </Box>
-              <Box sx={{}}>
+              <Box sx={{ width: "100%" }}>
                 <Typography
-                  sx={{ color: palette.primary.main, mt: 5 }}
+                  sx={{ color: palette.primary.main, mt: 5, mb: 3 }}
                   variant="h4"
                 >
                   Experience
                 </Typography>
-                <Box sx={{ p: 5 }}>
+                <Box sx={{ pl: 3 }}>
                   {resume.experience.map((exp, i) => {
                     while (i < resume.experience.length) {
                       return (
-                        <Box sx={{ p: 3 }}>
+                        <Box sx={{ pt: 2, pb: 3 }}>
                           <Typography
                             sx={{ color: palette.secondary.main }}
                             variant="h5"
                           >
                             {exp.name}
                           </Typography>
-                          <Box sx={{ p: 5 }}>
+                          <Box sx={{ p: 1 }}>
                             <Typography>{exp.employment}</Typography>
                             <Typography variant="body1">{exp.time}</Typography>
                           </Box>
-                          <Box sx={{ p: 5 }}>
+                          <Box sx={{ p: 3 }}>
                             <Typography>Duties:</Typography>
                             {exp?.duties?.map(d => {
                               return (
@@ -364,6 +409,7 @@ const IndexPage = ({ data }) => {
             sx={{
               display: "flex",
               justifyContent: "center",
+              boxShadow: 3,
             }}
           >
             <Box
@@ -374,16 +420,44 @@ const IndexPage = ({ data }) => {
                 justifyContent: "space-evenly",
               }}
             >
-              <Button sx={{ p: "15px" }} onClick={() => setTab("About")}>
+              <Button
+                sx={{
+                  p: 3.5,
+                  borderBottom: tab === "About" ? 2 : 0,
+                  borderColor: theme.palette.primary.main,
+                }}
+                onClick={() => setTab("About")}
+              >
                 about
               </Button>
-              <Button sx={{ p: "15px" }} onClick={() => setTab("Projects")}>
+              <Button
+                sx={{
+                  p: 3.5,
+                  borderBottom: tab === "Projects" ? 2 : 0,
+                  borderColor: theme.palette.primary.main,
+                }}
+                onClick={() => setTab("Projects")}
+              >
                 projects
               </Button>
-              <Button sx={{ p: "15px" }} onClick={() => setTab("Blog")}>
+              <Button
+                sx={{
+                  p: 3.5,
+                  borderBottom: tab === "Blog" ? 2 : 0,
+                  borderColor: theme.palette.primary.main,
+                }}
+                onClick={() => setTab("Blog")}
+              >
                 blog
               </Button>
-              <Button sx={{ p: "15px" }} onClick={() => setTab("Resume")}>
+              <Button
+                sx={{
+                  p: 3.5,
+                  borderBottom: tab === "Resume" ? 2 : 0,
+                  borderColor: theme.palette.primary.main,
+                }}
+                onClick={() => setTab("Resume")}
+              >
                 resume
               </Button>
             </Box>
