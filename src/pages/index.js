@@ -139,7 +139,7 @@ const IndexPage = ({ data }) => {
   const blogPosts = data.blog.edges
   const profile = data.ghostAuthor.profile_image
   // STATE FOR WHICH DATA IS SHOWN FOR EACH TAB
-  const [tab, setTab] = useState("Resume")
+  const [tab, setTab] = useState("About")
   // STATE FOR POST FILTERING
   const [query, setQuery] = useState("")
 
@@ -425,6 +425,7 @@ const IndexPage = ({ data }) => {
                   p: 3.5,
                   borderBottom: tab === "About" ? 2 : 0,
                   borderColor: theme.palette.primary.main,
+                  fontSize: tab === "About" ? 18 : 15,
                 }}
                 onClick={() => setTab("About")}
               >
@@ -435,6 +436,7 @@ const IndexPage = ({ data }) => {
                   p: 3.5,
                   borderBottom: tab === "Projects" ? 2 : 0,
                   borderColor: theme.palette.primary.main,
+                  fontSize: tab === "Projects" ? 18 : 15,
                 }}
                 onClick={() => setTab("Projects")}
               >
@@ -445,6 +447,7 @@ const IndexPage = ({ data }) => {
                   p: 3.5,
                   borderBottom: tab === "Blog" ? 2 : 0,
                   borderColor: theme.palette.primary.main,
+                  fontSize: tab === "Blog" ? 18 : 15,
                 }}
                 onClick={() => setTab("Blog")}
               >
@@ -455,6 +458,7 @@ const IndexPage = ({ data }) => {
                   p: 3.5,
                   borderBottom: tab === "Resume" ? 2 : 0,
                   borderColor: theme.palette.primary.main,
+                  fontSize: tab === "Resume" ? 18 : 15,
                 }}
                 onClick={() => setTab("Resume")}
               >

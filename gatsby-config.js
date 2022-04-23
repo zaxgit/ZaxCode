@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `ZaxCode`,
+    title: `<z/>`,
     description: `Personal Portfolio`,
     author: `@gatsbyjs`,
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
@@ -33,12 +33,11 @@ module.exports = {
       },
     },
     {
-      resolve:`gatsby-source-ghost`,
+      resolve: `gatsby-source-ghost`,
       options: {
-        apiUrl:`https://zaxcode-blog.zaxcode.dev`,
-        contentApiKey:`f113beb0284cc7c3989313d127`,
-
-      }
+        apiUrl: `https://zaxcode-blog.zaxcode.dev`,
+        contentApiKey: `f113beb0284cc7c3989313d127`,
+      },
     },
     {
       resolve: `gatsby-plugin-ghost-images`,

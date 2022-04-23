@@ -7,15 +7,27 @@ import { AiFillCodepenCircle } from "@react-icons/all-files/Ai/AiFillCodepenCirc
 
 export default function Footer() {
   const theme = useTheme()
-  const [copied, setCopied] = useState("")
   const [show, setShow] = useState(false)
 
+  // const copy = async () => {
+  //   if (copied !== "zwalter@zaxcode.dev") {
+  //     setCopied(document.getElementById("copyable_email").textContent)
+
+  //     alert("Copied!")
+  //   } else {
+  //     await navigator.clipboard.writeText(copied)
+  //   }
+  // }
+  // const email = document.getElementById("copyable_email").textContent
   const copy = async () => {
-    if (copied !== "zwalter@zaxcode.dev") {
-      setCopied(document.getElementById("copyable_email").textContent)
+    await navigator.clipboard.writeText(
+      document.getElementById("copyable_email").textContent
+    )
+    if (
+      navigator.clipboard.readText() ===
+      document.getElementById("copyable_email").textContent
+    ) {
       alert("Copied!")
-    } else {
-      await navigator.clipboard.writeText(copied)
     }
   }
   const background = show ? theme.palette.secondary.main : "transparent"
@@ -38,7 +50,6 @@ export default function Footer() {
         justifyContent: "center",
         flexGrow: 1,
         color: theme.palette.text.primary,
-        // bgcolor: theme.palette.background.paper,
       }}
     >
       <Box sx={{ maxWidth: 300, p: 5 }}>
