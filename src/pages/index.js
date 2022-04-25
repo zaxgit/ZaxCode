@@ -203,15 +203,9 @@ const IndexPage = ({ data }) => {
               </Box>
               <Typography sx={{ maxWidth: 500 }}>
                 Hello! I'm Zach and I've been teaching myself front end
-                development for a couple years. It started off as a hobby, and I
-                started taking more seriously during the pandemic. Coding is
-                challenging. Quite often you have a completely new problem to
-                solve, the more you solve, the more little pieces you pick up
-                along the way. it's like a puzzle except you get to decide what
-                pieces you want to build with. This Portfoilio is my first
-                React/Gatsby project. It's been fun, challenging, and
-                occasionally a pain in the ass, but I think that's what i love
-                aobut it.
+                development for a couple years. I started learning from sites
+                sush as codecademy and udemy. Most of what i learn at this point
+                is through documentaion searches for projects I'm building.
               </Typography>
             </Box>
           </Box>
