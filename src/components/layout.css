@@ -596,25 +596,7 @@ pre tt:after {
   }
 }
 
-/* Custom Styles */
-/* Color varibales */
 /* Layout Styles */
-
-.tabs_wrapper .tabs .tab {
-  background-color: transparent;
-  border: none;
-  color: white;
-  transition: ease-in-out 0.2s;
-}
-
-button.tab:hover {
-  text-shadow: 0px 0px 7px rgba(0, 0, 0, 0.8);
-  transform: scale(1.25);
-}
-button.tab:active {
-  transform: scale(1);
-}
-
 .zxc-container {
   min-height: 60vh;
   max-width: 1200px;
@@ -622,52 +604,23 @@ button.tab:active {
   display: block;
 }
 
-/* .projectcard_container {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-} */
-
-/* Tab Styles */
-.tabs_wrapper {
-  height: 10vh;
-  background: #d0202f;
-  padding-top: 25px;
-  padding-bottom: 10px;
-  margin-bottom: 25px;
-  display: flex;
-  justify-content: center;
-}
-.tabs {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  color: white;
-  font-size: 1.3rem;
-  width: 50%;
-}
-
-.tab {
-  transition: ease-in-out 0.5s;
-}
-
-/* blog tab styles */
-.search_container {
-  margin-top: 5%;
-  margin-bottom: 5%;
-}
-.search {
-  border: black;
-  border-radius: 15px;
-}
-
-.search:active {
-  border: none;
-}
-
 .bshade {
   box-shadow: 0px -2px 4px -1px rgb(0 0 0 / 20%),
     0px -4px 5px 0px rgb(0 0 0 / 14%), 0px -1px 10px 0px rgb(0 0 0 / 12%),
     0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%),
     0px 1px 10px 0px rgb(0 0 0 / 12%);
+}
+
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+@media (max-width: 1032px) {
+  .about {
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-around;
+  }
 }

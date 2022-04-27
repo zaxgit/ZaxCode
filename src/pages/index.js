@@ -183,11 +183,9 @@ const IndexPage = ({ data }) => {
             }}
           >
             <Box
+              className="about"
               sx={{
                 width: "90%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around",
                 boxShadow: 2,
                 borderRadius: 2,
                 p: 10,

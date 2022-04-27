@@ -3,7 +3,8 @@ import "./footer.css"
 import { Box, IconButton, Typography, useTheme } from "@mui/material"
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
 import GitHubIcon from "@mui/icons-material/GitHub"
-import { AiFillCodepenCircle } from "@react-icons/all-files/Ai/AiFillCodepenCircle"
+import CodeIcon from "@mui/icons-material/Code"
+// import { AiFillCodepenCircle } from "@react-icons/all-files/Ai/AiFillCodepenCircle"
 
 export default function Footer() {
   const theme = useTheme()
@@ -42,7 +43,7 @@ export default function Footer() {
         color: theme.palette.text.primary,
       }}
     >
-      <Box sx={{ maxWidth: 300, p: 5 }}>
+      <Box sx={{ maxWidth: 500, p: 5 }}>
         <Box sx={{ position: "relative" }}>
           <Typography
             variant-="body2"
@@ -51,7 +52,7 @@ export default function Footer() {
             sx={{
               position: "absolute",
               bottom: 40,
-              left: 60,
+              left: 80,
               color: theme.palette.primary.main,
               whitespace: "nowrap",
             }}
@@ -59,12 +60,17 @@ export default function Footer() {
             Click to copy!
           </Typography>
           <Typography
-            sx={{ bgcolor: background, borderRadius: 3, px: 1 }}
+            sx={{
+              bgcolor: background,
+              borderRadius: 3,
+              px: 1,
+              whiteSpace: "nowrap",
+            }}
             id="copyable_email"
             onMouseEnter={() => setShow(true)}
             onMouseLeave={() => setShow(false)}
             onClick={copy}
-            variant="h6"
+            variant="h5"
           >
             zwalter@zaxcode.dev
           </Typography>
@@ -75,15 +81,42 @@ export default function Footer() {
             justifyContent: "space-between",
           }}
         >
-          <IconButton href="https://www.linkedin.com/in/zachary-walter-0405a31a0/">
-            <LinkedInIcon />
-          </IconButton>
-          <IconButton href="https://github.com/zaxgit">
-            <GitHubIcon />
-          </IconButton>
-          <IconButton href="https://codepen.io/ZaxCode">
-            <AiFillCodepenCircle />
-          </IconButton>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <IconButton href="https://www.linkedin.com/in/zachary-walter-0405a31a0/">
+              <LinkedInIcon />
+            </IconButton>
+            <Typography variant="body2">LinkedIn</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <IconButton href="https://github.com/zaxgit">
+              <GitHubIcon />
+            </IconButton>
+            <Typography variant="body2">GitHub</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <IconButton href="https://codepen.io/ZaxCode">
+              <CodeIcon />
+            </IconButton>
+            <Typography variant="body2"> CodePen</Typography>
+          </Box>
         </Box>
       </Box>
     </Box>
