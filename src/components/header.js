@@ -1,13 +1,6 @@
 import React, { useContext } from "react"
 import PropTypes from "prop-types"
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  Typography,
-  Switch,
-  useTheme,
-} from "@mui/material"
+import { Box, AppBar, Toolbar, Typography, Switch } from "@mui/material"
 import { styled } from "@mui/material/styles"
 
 import { ColorModeContext } from "../pages"
@@ -60,7 +53,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const Header = ({ siteTitle }) => {
   const { mode, setMode } = useContext(ColorModeContext)
-  const theme = useTheme()
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{}} position="static">

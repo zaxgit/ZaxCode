@@ -12,10 +12,8 @@ import {
   Button,
   useTheme,
 } from "@mui/material"
-import FavoriteIcon from "@mui/icons-material/Favorite"
 import { Like } from "./like.js"
 
-// import "./blogpost.css"
 export function BlogPost(props) {
   const post = props.node
   const theme = useTheme()

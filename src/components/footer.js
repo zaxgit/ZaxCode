@@ -9,22 +9,12 @@ export default function Footer() {
   const theme = useTheme()
   const [show, setShow] = useState(false)
 
-  // const copy = async () => {
-  //   if (copied !== "zwalter@zaxcode.dev") {
-  //     setCopied(document.getElementById("copyable_email").textContent)
-
-  //     alert("Copied!")
-  //   } else {
-  //     await navigator.clipboard.writeText(copied)
-  //   }
-  // }
-  // const email = document.getElementById("copyable_email").textContent
   const copy = async () => {
     await navigator.clipboard.writeText(
       document.getElementById("copyable_email").textContent
     )
     if (
-      navigator.clipboard.readText() ===
+      (await navigator.clipboard.readText()) ===
       document.getElementById("copyable_email").textContent
     ) {
       alert("Copied!")

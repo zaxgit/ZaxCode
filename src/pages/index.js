@@ -167,11 +167,7 @@ const IndexPage = ({ data }) => {
       }),
     [mode]
   )
-  // LIKE BUTTON STATE
-  // LIKE BUTTON FUNCTIONALITY
-  // const likeButton = () => {
-  //   if()
-  // }
+
   // Render content dynamicly between tabs
   const content = () => {
     const palette = theme.palette

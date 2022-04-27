@@ -25,14 +25,6 @@ export function Like(props) {
     }
   }, [liked])
 
-  // const setLikedOffStored = useMemo(() => {
-  //   if (isLiked === "true") {
-  //     setLiked(true)
-  //   } else {
-  //     setLiked(false)
-  //   }
-  // }, [setStoredLike])
-
   // Retreive stored liked value
   const isLiked = useMemo(() => {
     if (localStorage.getItem(id) === "true") {
@@ -41,6 +33,7 @@ export function Like(props) {
       return false
     }
   })
+
   return (
     <IconButton
       id={id}
