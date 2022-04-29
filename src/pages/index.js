@@ -13,7 +13,9 @@ import Seo from "../components/seo"
 import { ProjectCard } from "../components/projectCard"
 import { BlogPost } from "../components/blogpost"
 import { Container } from "../components/container"
+//IMPORT CONTEXT
 import { ColorModeContext } from "../components/colorModeContext"
+
 // PULL IN DATA
 export const query = graphql`
   {
@@ -56,13 +58,16 @@ export const query = graphql`
     }
   }
 `
-//SET CONTEXT
-
+const isBrowser = typeof window !== "undefined"
 const IndexPage = ({ data }) => {
   // STATE FOR COLOR MODE
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)")
   const [mode, setMode] = useState(prefersDark)
-  const colorMode = localStorage.getItem("color mode")
+
+  let colorMode = null
+  if (isBrowser) {
+    colorMode = localStorage.getItem("color mode")
+  }
 
   //SET STATE MODE TO LOCAL STORAGE VALUE
   useEffect(() => {
@@ -77,8 +82,10 @@ const IndexPage = ({ data }) => {
   useEffect(() => {
     if (mode === true) {
       localStorage.setItem("color mode", true)
-    } else {
+    } else if (mode === false) {
       localStorage.setItem("color mode", false)
+    } else {
+      console.log("ERROR")
     }
   }, [mode])
 
