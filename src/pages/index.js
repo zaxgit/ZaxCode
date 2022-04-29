@@ -204,7 +204,7 @@ const IndexPage = ({ data }) => {
               <Typography sx={{ maxWidth: 500 }}>
                 Hello! I'm Zach and I've been teaching myself front end
                 development for a couple years. I started learning from sites
-                sush as codecademy and udemy. Most of what i learn at this point
+                such as codecademy and udemy. Most of what i learn at this point
                 is through documentaion searches for projects I'm building.
               </Typography>
             </Box>
