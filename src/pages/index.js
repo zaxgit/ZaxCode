@@ -13,6 +13,7 @@ import Seo from "../components/seo"
 import { ProjectCard } from "../components/projectCard"
 import { BlogPost } from "../components/blogpost"
 import { Container } from "../components/container"
+
 //IMPORT CONTEXT
 import { ColorModeContext } from "../components/colorModeContext"
 
@@ -58,15 +59,21 @@ export const query = graphql`
     }
   }
 `
+// check if
 const isBrowser = typeof window !== "undefined"
 const IndexPage = ({ data }) => {
   // STATE FOR COLOR MODE
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)")
   const [mode, setMode] = useState(prefersDark)
 
+  // PRE-DEFINE VARIABLES
   let colorMode = null
+  let cssRoot = null
+  // Get local storage value after gatsby builds
   if (isBrowser) {
     colorMode = localStorage.getItem("color mode")
+    // GET ROOT ELEMENT
+    cssRoot = document.querySelector(":root")
   }
 
   //SET STATE MODE TO LOCAL STORAGE VALUE
@@ -78,18 +85,19 @@ const IndexPage = ({ data }) => {
     }
   }, [])
 
-  // UPDATE LOCAL STORAGE VALUE
+  // UPDATE LOCAL STORAGE VALUE AND SET BODY COLOR
   useEffect(() => {
     if (mode === true) {
       localStorage.setItem("color mode", true)
+      cssRoot.style.setProperty("--body-color", "#121212")
     } else if (mode === false) {
       localStorage.setItem("color mode", false)
+      cssRoot.style.setProperty("--body-color", "#fff")
     } else {
       console.log("ERROR")
     }
   }, [mode])
 
-  // MAP LIKE COMPONENTS?
   //CREATE TAGS FOR LANGUAGES OR SKILLS
   const resume = {
     technicals: [
@@ -144,8 +152,10 @@ const IndexPage = ({ data }) => {
   const projects = data.projects.edges
   const blogPosts = data.blog.edges
   const profile = data.ghostAuthor.profile_image
+
   // STATE FOR WHICH DATA IS SHOWN FOR EACH TAB
   const [tab, setTab] = useState("About")
+
   // STATE FOR POST FILTERING
   const [query, setQuery] = useState("")
 
@@ -192,7 +202,6 @@ const IndexPage = ({ data }) => {
               className="about"
               sx={{
                 width: "90%",
-                boxShadow: 2,
                 borderRadius: 2,
                 p: 10,
                 m: 5,
@@ -225,7 +234,6 @@ const IndexPage = ({ data }) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                boxShadow: 2,
                 borderRadius: 2,
                 p: 10,
                 m: 5,
@@ -259,7 +267,6 @@ const IndexPage = ({ data }) => {
                 flexDirection: "column",
                 alignItems: "center",
                 bgcolor: theme.palette.background.paper,
-                boxShadow: 2,
                 borderRadius: 2,
                 p: 10,
                 m: 5,
@@ -312,7 +319,6 @@ const IndexPage = ({ data }) => {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                boxShadow: 2,
                 borderRadius: 2,
                 p: 10,
                 m: 5,
@@ -417,7 +423,8 @@ const IndexPage = ({ data }) => {
               <Button
                 sx={{
                   p: 3.5,
-                  borderBottom: tab === "About" ? 2 : 0,
+                  borderRadius: 0,
+                  borderBottom: tab === "About" ? 3 : 0,
                   borderColor: theme.palette.primary.main,
                   fontSize: tab === "About" ? 18 : 15,
                 }}
@@ -428,7 +435,8 @@ const IndexPage = ({ data }) => {
               <Button
                 sx={{
                   p: 3.5,
-                  borderBottom: tab === "Projects" ? 2 : 0,
+                  borderRadius: 0,
+                  borderBottom: tab === "Projects" ? 3 : 0,
                   borderColor: theme.palette.primary.main,
                   fontSize: tab === "Projects" ? 18 : 15,
                 }}
@@ -439,7 +447,8 @@ const IndexPage = ({ data }) => {
               <Button
                 sx={{
                   p: 3.5,
-                  borderBottom: tab === "Blog" ? 2 : 0,
+                  borderRadius: 0,
+                  borderBottom: tab === "Blog" ? 3 : 0,
                   borderColor: theme.palette.primary.main,
                   fontSize: tab === "Blog" ? 18 : 15,
                 }}
@@ -450,7 +459,8 @@ const IndexPage = ({ data }) => {
               <Button
                 sx={{
                   p: 3.5,
-                  borderBottom: tab === "Resume" ? 2 : 0,
+                  borderRadius: 0,
+                  borderBottom: tab === "Resume" ? 3 : 0,
                   borderColor: theme.palette.primary.main,
                   fontSize: tab === "Resume" ? 18 : 15,
                 }}
