@@ -1,4 +1,4 @@
-import React, { useState, createContext, useMemo, useEffect } from "react"
+import React, { useState, useMemo, useEffect } from "react"
 import { graphql } from "gatsby"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import {
@@ -13,7 +13,7 @@ import Seo from "../components/seo"
 import { ProjectCard } from "../components/projectCard"
 import { BlogPost } from "../components/blogpost"
 import { Container } from "../components/container"
-
+import { ColorModeContext } from "../components/colorModeContext"
 // PULL IN DATA
 export const query = graphql`
   {
@@ -57,7 +57,6 @@ export const query = graphql`
   }
 `
 //SET CONTEXT
-export const ColorModeContext = createContext()
 
 const IndexPage = ({ data }) => {
   // STATE FOR COLOR MODE
