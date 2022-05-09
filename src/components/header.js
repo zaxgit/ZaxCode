@@ -64,13 +64,14 @@ const Header = ({ siteTitle }) => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            ml: "5%",
-            mr: "5%",
+            alignItems: "space-between",
           }}
         >
-          <Typography variant="h2" sx={{ color: "text.primary" }}>
-            {siteTitle}
-          </Typography>
+          <Box>
+            <Typography variant="h2" sx={{ color: "text.primary" }}>
+              {siteTitle}
+            </Typography>
+          </Box>
           <MaterialUISwitch
             checked={mode}
             value={mode}

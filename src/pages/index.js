@@ -56,6 +56,7 @@ export const query = graphql`
     }
     ghostAuthor {
       profile_image
+      id
     }
   }
 `
@@ -66,9 +67,10 @@ const IndexPage = ({ data }) => {
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)")
   const [mode, setMode] = useState(prefersDark)
 
-  // PRE-DEFINE VARIABLES
+  // PRE-DEFINE LOCAL STORAGE VARIABLES
   let colorMode = null
   let cssRoot = null
+
   // Get local storage value after gatsby builds
   if (isBrowser) {
     colorMode = localStorage.getItem("color mode")
@@ -201,10 +203,9 @@ const IndexPage = ({ data }) => {
             <Box
               className="about"
               sx={{
-                width: "90%",
-                borderRadius: 2,
-                p: 10,
-                m: 5,
+                width: "100%",
+                p: 2,
+                mt: 5,
               }}
             >
               <Box>
@@ -230,13 +231,12 @@ const IndexPage = ({ data }) => {
           >
             <Box
               sx={{
-                width: "90%",
+                width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                borderRadius: 2,
-                p: 10,
-                m: 5,
+                p: 2,
+                mt: 5,
               }}
             >
               {projects.map(project => {
@@ -262,14 +262,12 @@ const IndexPage = ({ data }) => {
           >
             <Box
               sx={{
-                width: "90%",
+                width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                bgcolor: theme.palette.background.paper,
-                borderRadius: 2,
-                p: 10,
-                m: 5,
+                p: 2,
+                mt: 5,
               }}
             >
               <Box sx={{ width: "100%", mb: 5 }}>
@@ -315,14 +313,12 @@ const IndexPage = ({ data }) => {
           >
             <Box
               sx={{
-                width: "90%",
+                width: "100%",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                borderRadius: 2,
-                p: 10,
-                m: 5,
-                bgcolor: theme.palette.background.paper,
+                p: 2,
+                mt: 5,
                 color: palette.text.primary,
               }}
             >
