@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import {
+  Box,
   Card,
   CardContent,
   CardActionArea,
@@ -13,6 +14,7 @@ import {
   useTheme,
 } from "@mui/material"
 import { Like } from "./like.js"
+import { flexbox } from "@mui/system"
 
 export function BlogPost(props) {
   const post = props.node
@@ -42,23 +44,28 @@ export function BlogPost(props) {
       <Card
         sx={{
           bgcolor: theme.palette.background.paper,
-          minWidth: "100%",
-          maxWidth: 1000,
-          mb: 10,
         }}
       >
-        <CardActionArea onClick={handleClickOpen("paper")}>
+        <CardActionArea
+          onClick={handleClickOpen("paper")}
+          sx={{ minHeight: 305 }}
+        >
           <CardContent>
             <h1>{post.title}</h1>
-            <h3>
-              {post.created_at} <span>{post.published_at}</span>
-            </h3>
+            <Box
+              sx={{
+                display: "flex",
+                flexFlow: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <h3>{post.created_at}</h3> <span>{post.reading_time} min</span>
+            </Box>
             <p>{post.custom_excerpt}</p>
           </CardContent>
         </CardActionArea>
         <CardActions>
           <Like hasId={props.likedId} />
-          {post.reading_time} min
         </CardActions>
       </Card>
       {/* Full Post Dialog */}
@@ -69,11 +76,7 @@ export function BlogPost(props) {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle>
-          {post.title}
-          {post.published_at}
-          {post.reading_time}
-        </DialogTitle>
+        <DialogTitle>{post.title}</DialogTitle>
         <DialogContent dividers={scroll === "paper"}>
           <DialogContentText
             id="scroll-dialog-description"

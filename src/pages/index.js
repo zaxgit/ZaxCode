@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
   useMediaQuery,
+  Grid,
 } from "@mui/material"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -204,7 +205,7 @@ const IndexPage = ({ data }) => {
               className="about"
               sx={{
                 width: "100%",
-                p: 2,
+                p: 3,
                 mt: 5,
               }}
             >
@@ -212,95 +213,69 @@ const IndexPage = ({ data }) => {
                 <img src={profile} alt="me,myself and I" height="350" />
               </Box>
               <Typography sx={{ maxWidth: 500 }}>
-                Hello! I'm Zach and I've been teaching myself front end
-                development for a couple years. I started learning from sites
-                such as codecademy and udemy. Most of what i learn at this point
-                is through documentaion searches for projects I'm building.
+                Hello! I'm Zach, a Front End Web Developer. I've been teaching
+                myself to code for a couple years. I started this journey on
+                sites such as CodeCademy and Udemy. Most of what i learn now is
+                through reading documentaion and problem solving for projects
+                I'm building. Seeking to join a company where I can continue to
+                cultivate new skills and to help bring their online visions to
+                fruition.
               </Typography>
             </Box>
           </Box>
         )
       case "Projects":
         return (
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                p: 2,
-                mt: 5,
-              }}
-            >
-              {projects.map(project => {
-                return (
+          <Grid container spacing={6} sx={{ mt: 5, p: 3 }}>
+            {projects.map(project => {
+              return (
+                <Grid item xs={12} md={6} xl={4}>
                   <ProjectCard
                     likedId={project.node.uuid}
                     key={project.node.slug}
                     {...project}
                   />
-                )
-              })}
-            </Box>
-          </Box>
+                </Grid>
+              )
+            })}
+          </Grid>
         )
       case "Blog":
         return (
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                p: 2,
-                mt: 5,
-              }}
-            >
-              <Box sx={{ width: "100%", mb: 5 }}>
-                <TextField
-                  id="filled-basic"
-                  label="Search"
-                  variant="filled"
-                  onChange={e => setQuery(e.target.value.toLowerCase())}
-                />
-              </Box>
-
-              {blogPosts.map(post => {
-                if (query) {
-                  if (post.node.title.toLowerCase().includes(query))
-                    return (
+          <Grid container spacing={6} sx={{ mt: 5, p: 3 }}>
+            <Grid item xs={12} sx={{ mb: 5 }}>
+              <TextField
+                id="filled-basic"
+                label="Search"
+                variant="filled"
+                onChange={e => setQuery(e.target.value.toLowerCase())}
+              />
+            </Grid>
+            {blogPosts.map(post => {
+              if (query) {
+                if (post.node.title.toLowerCase().includes(query))
+                  return (
+                    <Grid item xs={12} md={6} xl={4}>
                       <BlogPost
                         likedId={post.node.uuid}
                         key={post.node.slug}
                         {...post}
                       />
-                    )
-                } else {
-                  return (
+                    </Grid>
+                  )
+              } else {
+                return (
+                  <Grid item xs={12} md={6} xl={4}>
                     <BlogPost
                       likedId={post.node.uuid}
                       key={post.node.slug}
                       {...post}
                     />
-                  )
-                }
-              })}
-            </Box>
-          </Box>
+                  </Grid>
+                )
+              }
+            })}
+          </Grid>
         )
       case "Resume":
         return (

@@ -19,9 +19,6 @@ export function ProjectCard(props) {
     <Card
       sx={{
         bgcolor: theme.palette.background.paper,
-        minWidth: "100%",
-        maxWidth: 1000,
-        mb: 10,
       }}
     >
       <CardActionArea
@@ -34,6 +31,7 @@ export function ProjectCard(props) {
           height="250"
           image={post.feature_image}
           alt={post.title}
+          sx={{ objectFit: "cover" }}
         ></CardMedia>
         <CardContent>
           <Typography variant="h5" sx={{ display: "inline-block" }}>
