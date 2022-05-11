@@ -49,7 +49,6 @@ export const query = graphql`
           title
           uuid
           created_at(formatString: "MMM DD, YYYY")
-          published_at(formatString: "MMM DD YYYY h:ma")
           plaintext
           custom_excerpt
         }
@@ -103,39 +102,37 @@ const IndexPage = ({ data }) => {
 
   //CREATE TAGS FOR LANGUAGES OR SKILLS
   const resume = {
-    technicals: [
-      "HTML",
-      "CSS",
-      "Javascript",
-      "React",
-      "Gatsby",
-      "Wordpress",
-      "PHP",
-      "Git",
-      "Node",
+    skills: [
+      {
+        name: "Languages",
+        content: ["HTML5", "CSS3", "JavaScript", "PHP", "Node"],
+      },
+      { name: "Frameworks", content: ["React", "Gatsby"] },
+      { name: "Libraries", content: ["GSAP3", "MUI", "Splide.js"] },
+      {
+        name: "CMS/Tools",
+        content: ["WordPress", "Adobe XD", "Figma", "Git", "Gatsby Cloud"],
+      },
     ],
-    softs: [
-      "Attention to detail",
-      "Problem Solving",
-      "Quick to grasp new concepts",
-      "Effective communicator",
-      "Conflict Resolution",
-    ],
+
     experience: [
       {
         name: "ZaxCode",
         time: "2019 - present",
         employment: "Self employed Front End Developer",
-        duties: ["Web development", "Debugging"],
+        duties: [
+          "Worked with clients to develop websites in WordPress, React, and Gatsby",
+        ],
       },
       {
         name: "STL Vapor",
         time: "8/5/19 - present",
         employment: "Sales Representitve",
         duties: [
-          "Inventory management",
-          "Customer Service",
-          "Troubleshooting customer device issues",
+          "Keyholder and Inventory management",
+          "Collaborate on new products to carry informed by shopper input",
+          "Facilitate great customer experiences for 50+ customers daily",
+          "Spearheaded product listing sheet for submission to the FDA",
         ],
       },
       {
@@ -143,13 +140,20 @@ const IndexPage = ({ data }) => {
         time: "2/4/18 - 8/5/19",
         employment: "Project Manager",
         duties: [
-          "Residential and commercial property inspections",
-          "Documentation of discovered damage",
-          "Project management",
-          "Lead procurement and sales",
+          "Brought in over a million dollars in sales through cold calling, previous customer referrals and leads",
+          "Determine cause and scale of property damage",
+          "Facilitate communication between customer and claims adjuster",
+          "Schedule projects and maintain connection with homeowners through the build duration",
         ],
       },
     ],
+    education: {
+      name: "Education",
+      school: "Vatterott, Extreme Institute",
+      degreeIn: "Audio Engineering and Production with Business",
+      degree: "Associates",
+      graduation: "2016",
+    },
   }
   // create variable for project and blog post queries
   const projects = data.projects.edges
@@ -205,7 +209,7 @@ const IndexPage = ({ data }) => {
               className="about"
               sx={{
                 width: "100%",
-                p: 3,
+                p: 2,
                 mt: 5,
               }}
             >
@@ -226,7 +230,7 @@ const IndexPage = ({ data }) => {
         )
       case "Projects":
         return (
-          <Grid container spacing={6} sx={{ mt: 5, p: 3 }}>
+          <Grid container spacing={6} sx={{ mt: 5, p: 2 }}>
             {projects.map(project => {
               return (
                 <Grid item xs={12} md={6} xl={4}>
@@ -242,7 +246,7 @@ const IndexPage = ({ data }) => {
         )
       case "Blog":
         return (
-          <Grid container spacing={6} sx={{ mt: 5, p: 3 }}>
+          <Grid container spacing={6} sx={{ mt: 5, p: 2 }}>
             <Grid item xs={12} sx={{ mb: 5 }}>
               <TextField
                 id="filled-basic"
@@ -279,80 +283,35 @@ const IndexPage = ({ data }) => {
         )
       case "Resume":
         return (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                p: 2,
-                mt: 5,
-                color: palette.text.primary,
-              }}
+          <Box>
+            <Grid
+              container
+              sx={{ p: 2, mt: 5, width: "100%" }}
+              justifyContent="space-around"
             >
-              <Box sx={{ width: "100%", mb: 10 }}>
-                <Typography
-                  sx={{ color: palette.primary.main, mb: 3 }}
-                  variant="h4"
-                >
-                  Technical Knowledge
+              <Grid item xs={12} sm={4}>
+                <Typography variant="h4" color={palette.primary.main}>
+                  Skills
                 </Typography>
-                <Box sx={{ display: "flex", flexFlow: "row wrap" }}>
-                  {resume.technicals.map(technical => {
-                    return (
-                      <Typography sx={{ pl: 3, pt: 1 }}>{technical}</Typography>
-                    )
-                  })}
-                </Box>
-              </Box>
-              <Box sx={{ width: "100%", mb: 10 }}>
-                <Typography
-                  sx={{ color: palette.primary.main, mt: 5, mb: 3 }}
-                  variant="h4"
-                >
-                  Soft Skills
-                </Typography>
-                <Box sx={{ display: "flex", flexFlow: "row wrap" }}>
-                  {resume.softs.map(soft => {
-                    return <Typography sx={{ pl: 3, pt: 1 }}>{soft}</Typography>
-                  })}
-                </Box>
-              </Box>
-              <Box sx={{ width: "100%" }}>
-                <Typography
-                  sx={{ color: palette.primary.main, mt: 5, mb: 3 }}
-                  variant="h4"
-                >
-                  Experience
-                </Typography>
-                <Box sx={{ pl: 3 }}>
-                  {resume.experience.map((exp, i) => {
-                    while (i < resume.experience.length) {
+                <Box sx={{ mt: 3 }}>
+                  {resume.skills.map((skill, i) => {
+                    while (i < resume.skills.length) {
                       return (
-                        <Box sx={{ pt: 2, pb: 3 }}>
+                        <Box sx={{ pt: 5 }}>
                           <Typography
-                            sx={{ color: palette.secondary.main }}
                             variant="h5"
+                            color={palette.secondary.main}
                           >
-                            {exp.name}
+                            {skill.name}
                           </Typography>
-                          <Box sx={{ p: 1 }}>
-                            <Typography>{exp.employment}</Typography>
-                            <Typography variant="body1">{exp.time}</Typography>
-                          </Box>
-                          <Box sx={{ p: 3 }}>
-                            <Typography>Duties:</Typography>
-                            {exp?.duties?.map(d => {
+                          <Box sx={{ pt: 2 }}>
+                            {skill?.content?.map(cont => {
                               return (
-                                <Typography sx={{ pl: 3, pt: 1 }}>
-                                  {d}
+                                <Typography
+                                  variant="body1"
+                                  color={palette.text.primary}
+                                >
+                                  {cont}
                                 </Typography>
                               )
                             })}
@@ -362,8 +321,153 @@ const IndexPage = ({ data }) => {
                     }
                   })}
                 </Box>
-              </Box>
-            </Box>
+                {/* <Typography variant="h4" color={palette.primary.main}>
+                  Skills
+                </Typography>
+                <Box sx={{ pl: 3 }}>
+                  <Typography
+                    variant="h5"
+                    color={palette.secondary.main}
+                    sx={{ mt: 5 }}
+                  >
+                    Languages
+                  </Typography>
+                  {resume.languages.map(language => {
+                    return (
+                      <Typography
+                        variant="body1"
+                        color={palette.text.primary}
+                        sx={{ pl: 5 }}
+                      >
+                        {language}
+                      </Typography>
+                    )
+                  })}
+                </Box>
+                <Box sx={{ pl: 3 }}>
+                  <Typography variant="h5" color={palette.secondary.main}>
+                    Frameworks
+                  </Typography>
+                  {resume.frameworks.map(frame => {
+                    return (
+                      <Typography
+                        sx={{ pl: 5 }}
+                        variant="body1"
+                        color={palette.text.primary}
+                      >
+                        {frame}
+                      </Typography>
+                    )
+                  })}
+                </Box>
+                <Box>
+                  <Typography
+                    sx={{ pl: 3 }}
+                    variant="h5"
+                    color={palette.secondary.main}
+                  >
+                    Libraries
+                  </Typography>
+
+                  {resume.libraries.map(library => {
+                    return (
+                      <Typography
+                        sx={{ pl: 5 }}
+                        variant="body1"
+                        color={palette.text.primary}
+                      >
+                        {library}
+                      </Typography>
+                    )
+                  })}
+                </Box>
+                <Box>
+                  <Typography
+                    sx={{ pl: 3 }}
+                    variant="h5"
+                    color={palette.secondary.main}
+                  >
+                    CMS/Tools
+                  </Typography>
+                  {resume.tools.map(tool => {
+                    return (
+                      <Typography
+                        sx={{ pl: 5 }}
+                        variant="body1"
+                        color={palette.text.primary}
+                      >
+                        {tool}
+                      </Typography>
+                    )
+                  })}
+                </Box> */}
+              </Grid>
+              <Grid item xs={12} sm={8}>
+                <Box>
+                  <Typography sx={{ color: palette.primary.main }} variant="h4">
+                    Experience
+                  </Typography>
+                  <Box sx={{ mt: 3 }}>
+                    {resume.experience.map((exp, i) => {
+                      while (i < resume.experience.length) {
+                        return (
+                          <Box sx={{ pt: 5 }}>
+                            <Typography
+                              sx={{ color: palette.secondary.main }}
+                              variant="h5"
+                            >
+                              {exp.name}
+                            </Typography>
+                            <Box sx={{ pt: 2 }}>
+                              <Typography
+                                variant="body1"
+                                color={palette.text.primary}
+                              >
+                                {exp.employment} -- {exp.time}
+                              </Typography>
+                            </Box>
+                            <Box sx={{ pl: 4 }}>
+                              {exp?.duties?.map(d => {
+                                return (
+                                  <Typography
+                                    variant="body2"
+                                    color={palette.text.primary}
+                                  >
+                                    {d}
+                                  </Typography>
+                                )
+                              })}
+                            </Box>
+                          </Box>
+                        )
+                      }
+                    })}
+                  </Box>
+                  <Box sx={{ mt: 8 }}>
+                    <Typography variant="h4" color={palette.primary.main}>
+                      {resume.education.name}
+                    </Typography>
+                    <Box>
+                      <Typography
+                        variant="h5"
+                        color={palette.secondary.main}
+                        sx={{ pt: 5 }}
+                      >
+                        {resume.education.school}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        color={palette.text.primary}
+                        sx={{ pt: 2 }}
+                      >
+                        {resume.education.degree}, {resume.education.degreeIn}{" "}
+                        -- {resume.education.graduation}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+              </Grid>
+            </Grid>
           </Box>
         )
       default:
