@@ -14,7 +14,6 @@ import {
   useTheme,
 } from "@mui/material"
 import { Like } from "./like.js"
-import { flexbox } from "@mui/system"
 
 export function BlogPost(props) {
   const post = props.node

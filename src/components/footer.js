@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from "react"
 import "./footer.css"
-import { Box, IconButton, Typography, useTheme } from "@mui/material"
+import { Box, IconButton, Typography, useTheme, Snackbar } from "@mui/material"
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import CodeIcon from "@mui/icons-material/Code"
-// import { AiFillCodepenCircle } from "@react-icons/all-files/Ai/AiFillCodepenCircle"
 
 export default function Footer() {
   const theme = useTheme()
+  // STATE FOR EMAIL HOVER
   const [show, setShow] = useState(false)
+  // STATE FOR TOAST
+  const [openSnack, setOpenSnack] = useState(false)
 
+  // CLICK HANDLER FOR EMAIL COPY
   const copy = async () => {
     await navigator.clipboard.writeText(
       document.getElementById("copyable_email").textContent
     )
+
     if (
       (await navigator.clipboard.readText()) ===
       document.getElementById("copyable_email").textContent
     ) {
-      alert("Copied!")
+      setOpenSnack(true)
     }
   }
+
+  // SET INITIAL BACKGROUND COLOR TO TRANSPARENT
   const background = show ? theme.palette.secondary.main : "transparent"
 
+  // SHOW/HIDE TEXT BASED OFF HOVER STATE
   useEffect(() => {
     const popUp = document.getElementById("popup")
 
@@ -43,6 +50,15 @@ export default function Footer() {
         color: theme.palette.text.primary,
       }}
     >
+      <Snackbar
+        sx={{ color: theme.palette.primary.main }}
+        autoHideDuration={1800}
+        onClose={() => {
+          setOpenSnack(false)
+        }}
+        message="Copied!"
+        open={openSnack}
+      />
       <Box sx={{ maxWidth: 500, p: 5 }}>
         <Box sx={{ position: "relative" }}>
           <Typography
