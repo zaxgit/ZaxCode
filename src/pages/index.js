@@ -293,11 +293,11 @@ const IndexPage = ({ data }) => {
                 <Typography variant="h4" color={palette.primary.main}>
                   Skills
                 </Typography>
-                <Box sx={{ mt: 3 }}>
+                <Grid container item sx={{ mb: 8 }}>
                   {resume.skills.map((skill, i) => {
                     while (i < resume.skills.length) {
                       return (
-                        <Box sx={{ pt: 5 }}>
+                        <Grid item xs={6} sm={12} sx={{ pt: 5 }}>
                           <Typography
                             variant="h5"
                             color={palette.secondary.main}
@@ -316,98 +316,18 @@ const IndexPage = ({ data }) => {
                               )
                             })}
                           </Box>
-                        </Box>
+                        </Grid>
                       )
                     }
                   })}
-                </Box>
-                {/* <Typography variant="h4" color={palette.primary.main}>
-                  Skills
-                </Typography>
-                <Box sx={{ pl: 3 }}>
-                  <Typography
-                    variant="h5"
-                    color={palette.secondary.main}
-                    sx={{ mt: 5 }}
-                  >
-                    Languages
-                  </Typography>
-                  {resume.languages.map(language => {
-                    return (
-                      <Typography
-                        variant="body1"
-                        color={palette.text.primary}
-                        sx={{ pl: 5 }}
-                      >
-                        {language}
-                      </Typography>
-                    )
-                  })}
-                </Box>
-                <Box sx={{ pl: 3 }}>
-                  <Typography variant="h5" color={palette.secondary.main}>
-                    Frameworks
-                  </Typography>
-                  {resume.frameworks.map(frame => {
-                    return (
-                      <Typography
-                        sx={{ pl: 5 }}
-                        variant="body1"
-                        color={palette.text.primary}
-                      >
-                        {frame}
-                      </Typography>
-                    )
-                  })}
-                </Box>
-                <Box>
-                  <Typography
-                    sx={{ pl: 3 }}
-                    variant="h5"
-                    color={palette.secondary.main}
-                  >
-                    Libraries
-                  </Typography>
-
-                  {resume.libraries.map(library => {
-                    return (
-                      <Typography
-                        sx={{ pl: 5 }}
-                        variant="body1"
-                        color={palette.text.primary}
-                      >
-                        {library}
-                      </Typography>
-                    )
-                  })}
-                </Box>
-                <Box>
-                  <Typography
-                    sx={{ pl: 3 }}
-                    variant="h5"
-                    color={palette.secondary.main}
-                  >
-                    CMS/Tools
-                  </Typography>
-                  {resume.tools.map(tool => {
-                    return (
-                      <Typography
-                        sx={{ pl: 5 }}
-                        variant="body1"
-                        color={palette.text.primary}
-                      >
-                        {tool}
-                      </Typography>
-                    )
-                  })}
-                </Box> */}
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={8}>
+              <Grid item xs={12} sm={8} sx={{ mb: 8 }}>
                 <Box>
                   <Typography sx={{ color: palette.primary.main }} variant="h4">
                     Experience
                   </Typography>
-                  <Box sx={{ mt: 3 }}>
+                  <Box>
                     {resume.experience.map((exp, i) => {
                       while (i < resume.experience.length) {
                         return (
@@ -423,7 +343,7 @@ const IndexPage = ({ data }) => {
                                 variant="body1"
                                 color={palette.text.primary}
                               >
-                                {exp.employment} -- {exp.time}
+                                {exp.employment}, {exp.time}
                               </Typography>
                             </Box>
                             <Box sx={{ pl: 4 }}>
