@@ -219,9 +219,9 @@ const IndexPage = ({ data }) => {
               <Typography sx={{ maxWidth: 500 }}>
                 Hello! I'm Zach, a Front End Web Developer. I've been teaching
                 myself to code for a couple years. I started this journey on
-                sites such as CodeCademy and Udemy. Most of what i learn now is
-                through reading documentaion and problem solving for projects
-                I'm building. Seeking to join a company where I can continue to
+                sites such as CodeCademy and Udemy. Most of my recent learning
+                has been through reading documentation and problem solving for
+                projects. Seeking to join a company where I can continue to
                 cultivate new skills and to help bring their online visions to
                 fruition.
               </Typography>
